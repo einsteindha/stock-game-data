@@ -1,0 +1,66 @@
+[
+  {
+    "ticker": "005930.KS",
+    "name": "삼성전자",
+    "sector": "A 반도체 기업",
+    "file": "005930_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "000660.KS",
+    "name": "SK하이닉스",
+    "sector": "B 메모리 기업",
+    "file": "000660_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "068270.KS",
+    "name": "셀트리온",
+    "sector": "C 바이오 기업",
+    "file": "068270_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "035720.KS",
+    "name": "카카오",
+    "sector": "D IT 플랫폼 기업",
+    "file": "035720_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "005380.KS",
+    "name": "현대차",
+    "sector": "E 자동차 기업",
+    "file": "005380_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "035420.KS",
+    "name": "NAVER",
+    "sector": "F 인터넷 기업",
+    "file": "035420_KS.json",
+    "total": 1221,
+    "currency": "KRW"
+  },
+  {
+    "ticker": "AAPL",
+    "name": "Apple",
+    "sector": "G 빅테크 기업",
+    "file": "AAPL.json",
+    "total": 1256,
+    "currency": "USD"
+  },
+  {
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "sector": "H AI 반도체 기업",
+    "file": "NVDA.json",
+    "total": 1256,
+    "currency": "USD"
+  }
+]
