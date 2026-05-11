@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>투자 게임 — 실전 기술적 분석</title>
-<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;background:#0f0f0f;color:#e0e0e0;min-height:100vh;padding:12px}
@@ -72,8 +70,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .shake{animation:shk 0.4s}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 8px}
-.ma-legend{display:flex;gap:10px;margin-bottom:6px;font-size:11px}
-.ma-dot{width:10px;height:2px;border-radius:1px;display:inline-block;margin-right:3px;vertical-align:middle}
+.ma-legend{display:flex;gap:10px;font-size:11px;color:#888}
+.ma-dot{width:12px;height:2px;border-radius:1px;display:inline-block;margin-right:3px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -82,7 +80,7 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 8px}
 
   <div id="loadingScreen" class="loading-screen">
     <div class="spin"></div>
-    <div style="font-size:13px;color:#888" id="loadingMsg">실제 주가 데이터 불러오는 중...</div>
+    <div style="font-size:13px;color:#888" id="loadingMsg">라이브러리 로딩 중...</div>
     <div style="font-size:11px;color:#555" id="loadingDetail"></div>
   </div>
 
@@ -123,24 +121,15 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 8px}
           <span><span class="ma-dot" style="background:#85B7EB"></span>MA20</span>
           <span><span class="ma-dot" style="background:#F09595"></span>MA60</span>
         </div>
-        <span style="margin-left:auto;font-size:10px;color:#555">스크롤·핀치로 줌 / 드래그로 이동</span>
+        <span style="margin-left:auto;font-size:10px;color:#555">스크롤로 줌 / 드래그로 이동</span>
       </div>
-      <div id="mainChart" style="width:100%;height:320px;border-radius:6px;overflow:hidden"></div>
+      <div id="mainChart" style="width:100%;height:320px"></div>
     </div>
 
     <div class="sub-grid">
-      <div class="sub-box">
-        <div class="sub-lbl">거래량</div>
-        <div id="volChart" style="width:100%;height:90px"></div>
-      </div>
-      <div class="sub-box">
-        <div class="sub-lbl">RSI (14)</div>
-        <div id="rsiChart" style="width:100%;height:90px"></div>
-      </div>
-      <div class="sub-box">
-        <div class="sub-lbl">MACD</div>
-        <div id="macdChart" style="width:100%;height:90px"></div>
-      </div>
+      <div class="sub-box"><div class="sub-lbl">거래량</div><div id="volChart" style="width:100%;height:90px"></div></div>
+      <div class="sub-box"><div class="sub-lbl">RSI (14)</div><div id="rsiChart" style="width:100%;height:90px"></div></div>
+      <div class="sub-box"><div class="sub-lbl">MACD</div><div id="macdChart" style="width:100%;height:90px"></div></div>
     </div>
 
     <div class="info-box">
@@ -222,29 +211,38 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 8px}
 const BASE_URL='https://einsteindha.github.io/stock-game-data/';
 const orderMode={buy:'qty',sell:'qty'};
 let stockIndex=[],stockData=null,state={};
-let lwCharts={};
-let chartInstances={};
+let mainChart=null,volChart=null,rsiChart=null,macdChart=null;
+let candleSeries=null,ma5Series=null,ma20Series=null,ma60Series=null;
+let volSeries=null,rsiSeries=null,rsi70=null,rsi30=null;
+let macdHist=null,macdLine=null,macdSig=null;
 let periodSize=1;
 const maVisible={5:true,20:true,60:true};
 
-const CHART_OPTS={
-  layout:{background:{color:'#1a1a1a'},textColor:'#888'},
+const DARK={layout:{background:{color:'#1a1a1a'},textColor:'#888'},
   grid:{vertLines:{color:'rgba(255,255,255,0.04)'},horzLines:{color:'rgba(255,255,255,0.04)'}},
   crosshair:{mode:1},
-  rightPriceScale:{borderColor:'#2a2a2a',textColor:'#888'},
-  timeScale:{borderColor:'#2a2a2a',textColor:'#666',timeVisible:true,secondsVisible:false},
-  handleScroll:true,handleScale:true,
-};
+  rightPriceScale:{borderColor:'#2a2a2a'},
+  timeScale:{borderColor:'#2a2a2a',timeVisible:true,secondsVisible:false}};
 
-async function loadIndex(){
+function loadScript(src){
+  return new Promise((resolve,reject)=>{
+    const s=document.createElement('script');
+    s.src=src;s.onload=resolve;s.onerror=reject;
+    document.head.appendChild(s);
+  });
+}
+
+async function init(){
   try{
+    document.getElementById('loadingMsg').textContent='차트 라이브러리 로딩 중...';
+    await loadScript('https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js');
     document.getElementById('loadingMsg').textContent='종목 목록 불러오는 중...';
     const res=await fetch(BASE_URL+'index.json');
     if(!res.ok)throw new Error('HTTP '+res.status);
     stockIndex=await res.json();
     showStockSelect();
   }catch(e){
-    document.getElementById('loadingMsg').textContent='데이터 로드 실패 — 페이지를 새로고침해 주세요';
+    document.getElementById('loadingMsg').textContent='로드 실패 — 페이지를 새로고침해 주세요';
     document.getElementById('loadingDetail').textContent=e.message;
   }
 }
@@ -281,7 +279,40 @@ async function loadStock(info){
   }
 }
 
-function goSelectStock(){document.getElementById('resultModal').classList.remove('show');showStockSelect();}
+function goSelectStock(){document.getElementById('resultModal').classList.remove('show');destroyCharts();showStockSelect();}
+function restartSameStock(){document.getElementById('resultModal').classList.remove('show');initGame();}
+
+function destroyCharts(){
+  [mainChart,volChart,rsiChart,macdChart].forEach(c=>{if(c)c.remove();});
+  mainChart=volChart=rsiChart=macdChart=null;
+  candleSeries=ma5Series=ma20Series=ma60Series=null;
+  volSeries=rsiSeries=rsi70=rsi30=null;
+  macdHist=macdLine=macdSig=null;
+  ['mainChart','volChart','rsiChart','macdChart'].forEach(id=>document.getElementById(id).innerHTML='');
+}
+
+function buildCharts(){
+  destroyCharts();
+  mainChart=LightweightCharts.createChart(document.getElementById('mainChart'),{...DARK,height:320,handleScroll:true,handleScale:true});
+  candleSeries=mainChart.addCandlestickSeries({upColor:'#1D9E75',downColor:'#E24B4A',borderUpColor:'#1D9E75',borderDownColor:'#E24B4A',wickUpColor:'#1D9E75',wickDownColor:'#E24B4A'});
+  ma5Series=mainChart.addLineSeries({color:'#FAC775',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  ma20Series=mainChart.addLineSeries({color:'#85B7EB',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  ma60Series=mainChart.addLineSeries({color:'#F09595',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+
+  const subOpts={...DARK,height:90,handleScroll:false,handleScale:false,timeScale:{...DARK.timeScale,visible:false}};
+  volChart=LightweightCharts.createChart(document.getElementById('volChart'),subOpts);
+  volSeries=volChart.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
+
+  rsiChart=LightweightCharts.createChart(document.getElementById('rsiChart'),subOpts);
+  rsiSeries=rsiChart.addLineSeries({color:'#7F77DD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  rsi70=rsiChart.addLineSeries({color:'rgba(226,75,74,0.5)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  rsi30=rsiChart.addLineSeries({color:'rgba(29,158,117,0.5)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+
+  macdChart=LightweightCharts.createChart(document.getElementById('macdChart'),subOpts);
+  macdHist=macdChart.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
+  macdLine=macdChart.addLineSeries({color:'#378ADD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  macdSig=macdChart.addLineSeries({color:'#EF9F27',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+}
 
 function initGame(){
   const candles=stockData.candles;
@@ -296,14 +327,12 @@ function initGame(){
   document.getElementById('resultModal').classList.remove('show');
   document.getElementById('stockSelectScreen').style.display='none';
   document.getElementById('gameScreen').style.display='block';
-  setTab('buy','qty');setTab('sell','qty');
-  clearInputs();
-  buildCharts();
-  updateCharts();
-  updateUI();
-}
 
-function restartSameStock(){document.getElementById('resultModal').classList.remove('show');initGame();}
+  buildCharts();
+
+  setTab('buy','qty');setTab('sell','qty');
+  clearInputs();updateCharts();updateUI();
+}
 
 function getVisible(){
   const end=state.startIdx+state.step*3+25;
@@ -312,77 +341,21 @@ function getVisible(){
 function curPrice(){const v=getVisible();return v[v.length-1].c;}
 function fmtPrice(v){return state.currency==='KRW'?'₩'+Math.round(v).toLocaleString():'$'+v.toFixed(2);}
 
-function toTimestamp(dateStr){
-  const [y,m,d]=dateStr.split('-').map(Number);
-  return Date.UTC(y,m-1,d)/1000;
-}
+function toTs(dateStr){const[y,m,d]=dateStr.split('-').map(Number);return Date.UTC(y,m-1,d)/1000;}
 
 function aggregateBars(data,period){
-  if(period===1)return data;
+  if(period===1)return data.map(d=>({...d,time:toTs(d.date),open:d.o,high:d.h,low:d.l,close:d.c,volume:d.v}));
   const out=[];
   for(let i=0;i<data.length;i+=period){
     const chunk=data.slice(i,Math.min(i+period,data.length));
     if(!chunk.length)continue;
     const last=chunk[chunk.length-1];
-    out.push({
-      time:toTimestamp(last.date),
-      open:chunk[0].o,high:Math.max(...chunk.map(d=>d.h)),
-      low:Math.min(...chunk.map(d=>d.l)),close:last.c,
-      volume:chunk.reduce((s,d)=>s+d.v,0),
+    out.push({time:toTs(last.date),open:chunk[0].o,high:Math.max(...chunk.map(d=>d.h)),
+      low:Math.min(...chunk.map(d=>d.l)),close:last.c,volume:chunk.reduce((s,d)=>s+d.v,0),
       rsi:last.rsi,ma5:last.ma5,ma20:last.ma20,ma60:last.ma60,
-      macd:last.macd,signal:last.signal,hist:last.hist,
-      date:last.date
-    });
+      macd:last.macd,signal:last.signal,hist:last.hist,date:last.date});
   }
   return out;
-}
-
-function buildCharts(){
-  ['mainChart','volChart','rsiChart','macdChart'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(lwCharts[id]){lwCharts[id].remove();delete lwCharts[id];delete chartInstances[id];}
-    el.innerHTML='';
-  });
-
-  const commonOpts={...CHART_OPTS,handleScroll:true,handleScale:true};
-
-  lwCharts.main=LightweightCharts.createChart(document.getElementById('mainChart'),{
-    ...commonOpts,height:320,
-    rightPriceScale:{...CHART_OPTS.rightPriceScale,minimumWidth:70},
-  });
-  chartInstances.candle=lwCharts.main.addCandlestickSeries({
-    upColor:'#1D9E75',downColor:'#E24B4A',
-    borderUpColor:'#1D9E75',borderDownColor:'#E24B4A',
-    wickUpColor:'#1D9E75',wickDownColor:'#E24B4A',
-  });
-  chartInstances.ma5=lwCharts.main.addLineSeries({color:'#FAC775',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-  chartInstances.ma20=lwCharts.main.addLineSeries({color:'#85B7EB',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-  chartInstances.ma60=lwCharts.main.addLineSeries({color:'#F09595',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-
-  lwCharts.vol=LightweightCharts.createChart(document.getElementById('volChart'),{
-    ...commonOpts,height:90,
-    rightPriceScale:{...CHART_OPTS.rightPriceScale,minimumWidth:60},
-    timeScale:{...CHART_OPTS.timeScale,visible:false},
-  });
-  chartInstances.vol=lwCharts.vol.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
-
-  lwCharts.rsi=LightweightCharts.createChart(document.getElementById('rsiChart'),{
-    ...commonOpts,height:90,
-    rightPriceScale:{...CHART_OPTS.rightPriceScale,minimumWidth:40},
-    timeScale:{...CHART_OPTS.timeScale,visible:false},
-  });
-  chartInstances.rsiLine=lwCharts.rsi.addLineSeries({color:'#7F77DD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-  chartInstances.rsi70=lwCharts.rsi.addLineSeries({color:'rgba(226,75,74,0.4)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-  chartInstances.rsi30=lwCharts.rsi.addLineSeries({color:'rgba(29,158,117,0.4)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-
-  lwCharts.macd=LightweightCharts.createChart(document.getElementById('macdChart'),{
-    ...commonOpts,height:90,
-    rightPriceScale:{...CHART_OPTS.rightPriceScale,minimumWidth:50},
-    timeScale:{...CHART_OPTS.timeScale,visible:false},
-  });
-  chartInstances.macdHist=lwCharts.macd.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
-  chartInstances.macdLine=lwCharts.macd.addLineSeries({color:'#378ADD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-  chartInstances.macdSig=lwCharts.macd.addLineSeries({color:'#EF9F27',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
 }
 
 function setPeriod(p){
@@ -390,39 +363,38 @@ function setPeriod(p){
   document.querySelectorAll('#periodBtns .tbtn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.period)===p));
   updateCharts();
 }
-
 function toggleMA(n){
   maVisible[n]=!maVisible[n];
   document.querySelector(`[data-ma="${n}"]`).classList.toggle('active',maVisible[n]);
   updateCharts();
 }
 
+function nn(arr){return arr.filter(d=>d.value!=null&&!isNaN(d.value));}
+
 function updateCharts(){
+  if(!candleSeries)return;
   const vis=getVisible();
   const agg=aggregateBars(vis,periodSize);
 
-  const candleData=agg.map(d=>({time:d.time,open:d.open,high:d.high,low:d.low,close:d.close}));
-  chartInstances.candle.setData(candleData);
+  candleSeries.setData(agg.map(d=>({time:d.time,open:d.open,high:d.high,low:d.low,close:d.close})));
+  ma5Series.setData(maVisible[5]?nn(agg.map(d=>({time:d.time,value:d.ma5}))):[]);
+  ma20Series.setData(maVisible[20]?nn(agg.map(d=>({time:d.time,value:d.ma20}))):[]);
+  ma60Series.setData(maVisible[60]?nn(agg.map(d=>({time:d.time,value:d.ma60}))):[]);
 
-  const filterNull=arr=>arr.filter(d=>d.value!=null);
-  chartInstances.ma5.setData(maVisible[5]?filterNull(agg.map(d=>({time:d.time,value:d.ma5}))):[]);
-  chartInstances.ma20.setData(maVisible[20]?filterNull(agg.map(d=>({time:d.time,value:d.ma20}))):[]);
-  chartInstances.ma60.setData(maVisible[60]?filterNull(agg.map(d=>({time:d.time,value:d.ma60}))):[]);
+  volSeries.setData(agg.map(d=>({time:d.time,value:d.volume,color:d.close>=d.open?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'})));
 
-  chartInstances.vol.setData(agg.map(d=>({time:d.time,value:d.volume,color:d.close>=d.open?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'})));
-
-  const rsiData=filterNull(agg.map(d=>({time:d.time,value:d.rsi})));
-  chartInstances.rsiLine.setData(rsiData);
+  const rsiData=nn(agg.map(d=>({time:d.time,value:d.rsi})));
+  rsiSeries.setData(rsiData);
   if(rsiData.length){
-    chartInstances.rsi70.setData(rsiData.map(d=>({time:d.time,value:70})));
-    chartInstances.rsi30.setData(rsiData.map(d=>({time:d.time,value:30})));
+    rsi70.setData(rsiData.map(d=>({time:d.time,value:70})));
+    rsi30.setData(rsiData.map(d=>({time:d.time,value:30})));
   }
 
-  chartInstances.macdHist.setData(filterNull(agg.map(d=>({time:d.time,value:d.hist,color:d.hist>=0?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'}))));
-  chartInstances.macdLine.setData(filterNull(agg.map(d=>({time:d.time,value:d.macd}))));
-  chartInstances.macdSig.setData(filterNull(agg.map(d=>({time:d.time,value:d.signal}))));
+  macdHist.setData(nn(agg.map(d=>({time:d.time,value:d.hist,color:d.hist>=0?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'}))));
+  macdLine.setData(nn(agg.map(d=>({time:d.time,value:d.macd}))));
+  macdSig.setData(nn(agg.map(d=>({time:d.time,value:d.signal}))));
 
-  Object.values(lwCharts).forEach(c=>c.timeScale().fitContent());
+  [mainChart,volChart,rsiChart,macdChart].forEach(c=>c.timeScale().fitContent());
 
   const last=vis[vis.length-1];
   document.getElementById('inf-price').textContent=fmtPrice(last.c);
@@ -514,8 +486,7 @@ function execOrder(side){
 }
 function nextStep(){
   if(state.step>=state.totalSteps-1){showResult();return;}
-  state.step++;
-  clearInputs();updateCharts();updateUI();
+  state.step++;clearInputs();updateCharts();updateUI();
 }
 function showResult(){
   const p=curPrice();
@@ -537,7 +508,7 @@ function showResult(){
   document.getElementById('resultModal').classList.add('show');
 }
 
-loadIndex();
+init();
 </script>
 </body>
 </html>
