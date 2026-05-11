@@ -1,0 +1,282 @@
+[
+  {
+    "ticker": "005930.KS",
+    "name": "삼성전자",
+    "file": "005930_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "000660.KS",
+    "name": "SK하이닉스",
+    "file": "000660_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "005380.KS",
+    "name": "현대차",
+    "file": "005380_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "000270.KS",
+    "name": "기아",
+    "file": "000270_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "068270.KS",
+    "name": "셀트리온",
+    "file": "068270_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "035420.KS",
+    "name": "NAVER",
+    "file": "035420_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "035720.KS",
+    "name": "카카오",
+    "file": "035720_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "051910.KS",
+    "name": "LG화학",
+    "file": "051910_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 33
+  },
+  {
+    "ticker": "006400.KS",
+    "name": "삼성SDI",
+    "file": "006400_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "003550.KS",
+    "name": "LG",
+    "file": "003550_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "055550.KS",
+    "name": "신한지주",
+    "file": "055550_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "105560.KS",
+    "name": "KB금융",
+    "file": "105560_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "012330.KS",
+    "name": "현대모비스",
+    "file": "012330_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "028260.KS",
+    "name": "삼성물산",
+    "file": "028260_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "066570.KS",
+    "name": "LG전자",
+    "file": "066570_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "034730.KS",
+    "name": "SK",
+    "file": "034730_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "017670.KS",
+    "name": "SK텔레콤",
+    "file": "017670_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "030200.KS",
+    "name": "KT",
+    "file": "030200_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "096770.KS",
+    "name": "SK이노베이션",
+    "file": "096770_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "003490.KS",
+    "name": "대한항공",
+    "file": "003490_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "011200.KS",
+    "name": "HMM",
+    "file": "011200_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 36
+  },
+  {
+    "ticker": "086790.KS",
+    "name": "하나금융지주",
+    "file": "086790_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 34
+  },
+  {
+    "ticker": "000810.KS",
+    "name": "삼성화재",
+    "file": "000810_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "032830.KS",
+    "name": "삼성생명",
+    "file": "032830_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 36
+  },
+  {
+    "ticker": "018260.KS",
+    "name": "삼성에스디에스",
+    "file": "018260_KS.json",
+    "total": 1221,
+    "currency": "KRW",
+    "game_points": 35
+  },
+  {
+    "ticker": "AAPL",
+    "name": "Apple",
+    "file": "AAPL.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "file": "NVDA.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 35
+  },
+  {
+    "ticker": "MSFT",
+    "name": "Microsoft",
+    "file": "MSFT.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "file": "TSLA.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 35
+  },
+  {
+    "ticker": "AMZN",
+    "name": "Amazon",
+    "file": "AMZN.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "META",
+    "name": "Meta",
+    "file": "META.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "GOOGL",
+    "name": "Alphabet",
+    "file": "GOOGL.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "JPM",
+    "name": "JPMorgan",
+    "file": "JPM.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  },
+  {
+    "ticker": "XOM",
+    "name": "ExxonMobil",
+    "file": "XOM.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 35
+  },
+  {
+    "ticker": "AMD",
+    "name": "AMD",
+    "file": "AMD.json",
+    "total": 1255,
+    "currency": "USD",
+    "game_points": 36
+  }
+]
