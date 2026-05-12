@@ -1,8 +1,7 @@
 """
-투자 게임용 주가 데이터 수집 스크립트 v3
-- 코스피 주요 100개 + 미국 주요 50개
-- 의미 있는 게임 포인트 자동 감지
-- GitHub Actions 자동화 대응
+투자 게임용 주가 데이터 수집 스크립트 v4
+- 종목별 난이도 태그 (easy/normal/hard)
+- 게임 포인트에 난이도 태그 포함
 실행: python fetch_stock_data.py
 """
 
@@ -12,138 +11,123 @@ import json
 import os
 from datetime import datetime
 
-# ── 종목 목록 ──────────────────────────────────────────────────
+# ── 종목 목록 (difficulty: easy/normal/hard) ──────────────────
 KOSPI_STOCKS = [
-    # 반도체/IT
-    {"ticker":"005930.KS","name":"삼성전자"},
-    {"ticker":"000660.KS","name":"SK하이닉스"},
-    {"ticker":"066570.KS","name":"LG전자"},
-    {"ticker":"018260.KS","name":"삼성에스디에스"},
-    {"ticker":"034730.KS","name":"SK"},
-    {"ticker":"017670.KS","name":"SK텔레콤"},
-    {"ticker":"030200.KS","name":"KT"},
-    {"ticker":"035420.KS","name":"NAVER"},
-    {"ticker":"035720.KS","name":"카카오"},
-    {"ticker":"259960.KS","name":"크래프톤"},
-    # 자동차
-    {"ticker":"005380.KS","name":"현대차"},
-    {"ticker":"000270.KS","name":"기아"},
-    {"ticker":"012330.KS","name":"현대모비스"},
-    {"ticker":"011210.KS","name":"현대위아"},
-    {"ticker":"204320.KS","name":"현대글로비스"},
-    # 화학/소재
-    {"ticker":"051910.KS","name":"LG화학"},
-    {"ticker":"096770.KS","name":"SK이노베이션"},
-    {"ticker":"011170.KS","name":"롯데케미칼"},
-    {"ticker":"010950.KS","name":"S-Oil"},
-    {"ticker":"004020.KS","name":"현대제철"},
-    {"ticker":"005490.KS","name":"POSCO홀딩스"},
-    {"ticker":"003670.KS","name":"포스코퓨처엠"},
-    # 2차전지
-    {"ticker":"006400.KS","name":"삼성SDI"},
-    {"ticker":"373220.KS","name":"LG에너지솔루션"},
-    {"ticker":"247540.KS","name":"에코프로비엠"},
-    {"ticker":"086520.KS","name":"에코프로"},
-    # 바이오/헬스
-    {"ticker":"068270.KS","name":"셀트리온"},
-    {"ticker":"207940.KS","name":"삼성바이오로직스"},
-    {"ticker":"128940.KS","name":"한미약품"},
-    {"ticker":"326030.KS","name":"SK바이오팜"},
-    {"ticker":"145020.KS","name":"휴젤"},
-    # 금융
-    {"ticker":"055550.KS","name":"신한지주"},
-    {"ticker":"105560.KS","name":"KB금융"},
-    {"ticker":"086790.KS","name":"하나금융지주"},
-    {"ticker":"139130.KS","name":"DGB금융지주"},
-    {"ticker":"000810.KS","name":"삼성화재"},
-    {"ticker":"032830.KS","name":"삼성생명"},
-    {"ticker":"316140.KS","name":"우리금융지주"},
-    # 건설/부동산
-    {"ticker":"028260.KS","name":"삼성물산"},
-    {"ticker":"000720.KS","name":"현대건설"},
-    {"ticker":"047040.KS","name":"대우건설"},
-    # 유통/소비
-    {"ticker":"139480.KS","name":"이마트"},
-    {"ticker":"023530.KS","name":"롯데쇼핑"},
-    {"ticker":"004370.KS","name":"농심"},
-    {"ticker":"097950.KS","name":"CJ제일제당"},
-    {"ticker":"271560.KS","name":"오리온"},
-    # 엔터/미디어
-    {"ticker":"352820.KS","name":"하이브"},
-    {"ticker":"041510.KS","name":"에스엠"},
-    {"ticker":"035900.KS","name":"JYP엔터테인먼트"},
-    {"ticker":"122870.KS","name":"와이지엔터테인먼트"},
-    # 운송/물류
-    {"ticker":"003490.KS","name":"대한항공"},
-    {"ticker":"011200.KS","name":"HMM"},
-    {"ticker":"000120.KS","name":"CJ대한통운"},
-    # 방산/중공업
-    {"ticker":"012450.KS","name":"한화에어로스페이스"},
-    {"ticker":"329180.KS","name":"현대중공업"},
-    {"ticker":"010140.KS","name":"삼성중공업"},
-    {"ticker":"042660.KS","name":"한화오션"},
+    # 쉬움 — 대형 우량주 (변동성 낮음)
+    {"ticker":"005930.KS","name":"삼성전자","difficulty":"easy"},
+    {"ticker":"005380.KS","name":"현대차","difficulty":"easy"},
+    {"ticker":"000270.KS","name":"기아","difficulty":"easy"},
+    {"ticker":"055550.KS","name":"신한지주","difficulty":"easy"},
+    {"ticker":"105560.KS","name":"KB금융","difficulty":"easy"},
+    {"ticker":"086790.KS","name":"하나금융지주","difficulty":"easy"},
+    {"ticker":"316140.KS","name":"우리금융지주","difficulty":"easy"},
+    {"ticker":"000810.KS","name":"삼성화재","difficulty":"easy"},
+    {"ticker":"032830.KS","name":"삼성생명","difficulty":"easy"},
+    {"ticker":"012330.KS","name":"현대모비스","difficulty":"easy"},
+    {"ticker":"028260.KS","name":"삼성물산","difficulty":"easy"},
+    {"ticker":"034730.KS","name":"SK","difficulty":"easy"},
+    {"ticker":"017670.KS","name":"SK텔레콤","difficulty":"easy"},
+    {"ticker":"030200.KS","name":"KT","difficulty":"easy"},
+    {"ticker":"066570.KS","name":"LG전자","difficulty":"easy"},
+    {"ticker":"003550.KS","name":"LG","difficulty":"easy"},
+    {"ticker":"097950.KS","name":"CJ제일제당","difficulty":"easy"},
+    {"ticker":"004370.KS","name":"농심","difficulty":"easy"},
+    {"ticker":"271560.KS","name":"오리온","difficulty":"easy"},
+    {"ticker":"139480.KS","name":"이마트","difficulty":"easy"},
+    # 보통 — 중형주 + 성장주
+    {"ticker":"000660.KS","name":"SK하이닉스","difficulty":"normal"},
+    {"ticker":"035420.KS","name":"NAVER","difficulty":"normal"},
+    {"ticker":"035720.KS","name":"카카오","difficulty":"normal"},
+    {"ticker":"051910.KS","name":"LG화학","difficulty":"normal"},
+    {"ticker":"006400.KS","name":"삼성SDI","difficulty":"normal"},
+    {"ticker":"096770.KS","name":"SK이노베이션","difficulty":"normal"},
+    {"ticker":"005490.KS","name":"POSCO홀딩스","difficulty":"normal"},
+    {"ticker":"068270.KS","name":"셀트리온","difficulty":"normal"},
+    {"ticker":"207940.KS","name":"삼성바이오로직스","difficulty":"normal"},
+    {"ticker":"128940.KS","name":"한미약품","difficulty":"normal"},
+    {"ticker":"018260.KS","name":"삼성에스디에스","difficulty":"normal"},
+    {"ticker":"352820.KS","name":"하이브","difficulty":"normal"},
+    {"ticker":"041510.KS","name":"에스엠","difficulty":"normal"},
+    {"ticker":"003490.KS","name":"대한항공","difficulty":"normal"},
+    {"ticker":"011200.KS","name":"HMM","difficulty":"normal"},
+    {"ticker":"012450.KS","name":"한화에어로스페이스","difficulty":"normal"},
+    {"ticker":"329180.KS","name":"현대중공업","difficulty":"normal"},
+    {"ticker":"259960.KS","name":"크래프톤","difficulty":"normal"},
+    {"ticker":"373220.KS","name":"LG에너지솔루션","difficulty":"normal"},
+    {"ticker":"003670.KS","name":"포스코퓨처엠","difficulty":"normal"},
+    # 어려움 — 고변동성
+    {"ticker":"247540.KS","name":"에코프로비엠","difficulty":"hard"},
+    {"ticker":"086520.KS","name":"에코프로","difficulty":"hard"},
+    {"ticker":"326030.KS","name":"SK바이오팜","difficulty":"hard"},
+    {"ticker":"145020.KS","name":"휴젤","difficulty":"hard"},
+    {"ticker":"035900.KS","name":"JYP엔터테인먼트","difficulty":"hard"},
+    {"ticker":"122870.KS","name":"와이지엔터테인먼트","difficulty":"hard"},
+    {"ticker":"042660.KS","name":"한화오션","difficulty":"hard"},
+    {"ticker":"010140.KS","name":"삼성중공업","difficulty":"hard"},
+    {"ticker":"047040.KS","name":"대우건설","difficulty":"hard"},
+    {"ticker":"011170.KS","name":"롯데케미칼","difficulty":"hard"},
 ]
 
 US_STOCKS = [
-    # 빅테크
-    {"ticker":"AAPL","name":"Apple"},
-    {"ticker":"MSFT","name":"Microsoft"},
-    {"ticker":"GOOGL","name":"Alphabet"},
-    {"ticker":"AMZN","name":"Amazon"},
-    {"ticker":"META","name":"Meta"},
-    {"ticker":"NVDA","name":"NVIDIA"},
-    {"ticker":"TSLA","name":"Tesla"},
-    {"ticker":"AMD","name":"AMD"},
-    {"ticker":"INTC","name":"Intel"},
-    {"ticker":"QCOM","name":"Qualcomm"},
-    # 금융
-    {"ticker":"JPM","name":"JPMorgan"},
-    {"ticker":"BAC","name":"Bank of America"},
-    {"ticker":"GS","name":"Goldman Sachs"},
-    {"ticker":"MS","name":"Morgan Stanley"},
-    {"ticker":"V","name":"Visa"},
-    {"ticker":"MA","name":"Mastercard"},
-    # 헬스케어
-    {"ticker":"JNJ","name":"Johnson & Johnson"},
-    {"ticker":"PFE","name":"Pfizer"},
-    {"ticker":"MRK","name":"Merck"},
-    {"ticker":"ABBV","name":"AbbVie"},
-    {"ticker":"UNH","name":"UnitedHealth"},
-    # 에너지
-    {"ticker":"XOM","name":"ExxonMobil"},
-    {"ticker":"CVX","name":"Chevron"},
-    {"ticker":"COP","name":"ConocoPhillips"},
-    # 소비재
-    {"ticker":"WMT","name":"Walmart"},
-    {"ticker":"COST","name":"Costco"},
-    {"ticker":"MCD","name":"McDonald's"},
-    {"ticker":"SBUX","name":"Starbucks"},
-    {"ticker":"NKE","name":"Nike"},
-    # 통신/미디어
-    {"ticker":"NFLX","name":"Netflix"},
-    {"ticker":"DIS","name":"Disney"},
-    {"ticker":"T","name":"AT&T"},
-    # 항공/운송
-    {"ticker":"BA","name":"Boeing"},
-    {"ticker":"UAL","name":"United Airlines"},
-    # 전기차/배터리
-    {"ticker":"RIVN","name":"Rivian"},
-    {"ticker":"LCID","name":"Lucid"},
-    # AI/클라우드
-    {"ticker":"CRM","name":"Salesforce"},
-    {"ticker":"NOW","name":"ServiceNow"},
-    {"ticker":"PLTR","name":"Palantir"},
-    # ETF (지수 흐름 파악용)
-    {"ticker":"SPY","name":"S&P500 ETF"},
-    {"ticker":"QQQ","name":"나스닥100 ETF"},
-    {"ticker":"IWM","name":"러셀2000 ETF"},
+    # 쉬움
+    {"ticker":"SPY","name":"S&P500 ETF","difficulty":"easy"},
+    {"ticker":"QQQ","name":"나스닥100 ETF","difficulty":"easy"},
+    {"ticker":"IWM","name":"러셀2000 ETF","difficulty":"easy"},
+    {"ticker":"JPM","name":"JPMorgan","difficulty":"easy"},
+    {"ticker":"BAC","name":"Bank of America","difficulty":"easy"},
+    {"ticker":"JNJ","name":"Johnson & Johnson","difficulty":"easy"},
+    {"ticker":"WMT","name":"Walmart","difficulty":"easy"},
+    {"ticker":"COST","name":"Costco","difficulty":"easy"},
+    {"ticker":"V","name":"Visa","difficulty":"easy"},
+    {"ticker":"MA","name":"Mastercard","difficulty":"easy"},
+    {"ticker":"XOM","name":"ExxonMobil","difficulty":"easy"},
+    {"ticker":"CVX","name":"Chevron","difficulty":"easy"},
+    # 보통
+    {"ticker":"AAPL","name":"Apple","difficulty":"normal"},
+    {"ticker":"MSFT","name":"Microsoft","difficulty":"normal"},
+    {"ticker":"GOOGL","name":"Alphabet","difficulty":"normal"},
+    {"ticker":"AMZN","name":"Amazon","difficulty":"normal"},
+    {"ticker":"META","name":"Meta","difficulty":"normal"},
+    {"ticker":"NVDA","name":"NVIDIA","difficulty":"normal"},
+    {"ticker":"INTC","name":"Intel","difficulty":"normal"},
+    {"ticker":"QCOM","name":"Qualcomm","difficulty":"normal"},
+    {"ticker":"MCD","name":"McDonald's","difficulty":"normal"},
+    {"ticker":"SBUX","name":"Starbucks","difficulty":"normal"},
+    {"ticker":"NKE","name":"Nike","difficulty":"normal"},
+    {"ticker":"DIS","name":"Disney","difficulty":"normal"},
+    {"ticker":"NFLX","name":"Netflix","difficulty":"normal"},
+    {"ticker":"GS","name":"Goldman Sachs","difficulty":"normal"},
+    {"ticker":"MS","name":"Morgan Stanley","difficulty":"normal"},
+    {"ticker":"UNH","name":"UnitedHealth","difficulty":"normal"},
+    {"ticker":"PFE","name":"Pfizer","difficulty":"normal"},
+    {"ticker":"BA","name":"Boeing","difficulty":"normal"},
+    {"ticker":"COP","name":"ConocoPhillips","difficulty":"normal"},
+    # 어려움
+    {"ticker":"TSLA","name":"Tesla","difficulty":"hard"},
+    {"ticker":"AMD","name":"AMD","difficulty":"hard"},
+    {"ticker":"RIVN","name":"Rivian","difficulty":"hard"},
+    {"ticker":"LCID","name":"Lucid","difficulty":"hard"},
+    {"ticker":"PLTR","name":"Palantir","difficulty":"hard"},
+    {"ticker":"CRM","name":"Salesforce","difficulty":"hard"},
+    {"ticker":"NOW","name":"ServiceNow","difficulty":"hard"},
+    {"ticker":"MRK","name":"Merck","difficulty":"hard"},
+    {"ticker":"ABBV","name":"AbbVie","difficulty":"hard"},
+    {"ticker":"UAL","name":"United Airlines","difficulty":"hard"},
+    {"ticker":"T","name":"AT&T","difficulty":"hard"},
 ]
 
 ALL_STOCKS = KOSPI_STOCKS + US_STOCKS
 PERIOD = "5y"
 OUTPUT_DIR = "stock_data"
 MIN_CANDLES = 60
-MIN_GAME_POINTS = 5  # 게임 포인트 최소 개수
+MIN_GAME_POINTS = 5
+
+# 난이도별 허용 포인트 유형
+DIFFICULTY_POINTS = {
+    "easy":   ["golden_cross","dead_cross"],
+    "normal": ["golden_cross","dead_cross","rsi_overbought","rsi_oversold","momentum_up","momentum_down"],
+    "hard":   ["fake_breakout","volume_surge_down","momentum_up","momentum_down","rsi_overbought","rsi_oversold"],
+}
 
 # ── 지표 계산 ──────────────────────────────────────────────────
 def calc_ma(closes, period):
@@ -183,10 +167,10 @@ def detect_game_points(candles):
     n = len(candles)
     closes = [c["c"] for c in candles]
     vols   = [c["v"] for c in candles]
-    ma5    = [c.get("ma5")   for c in candles]
-    ma20   = [c.get("ma20")  for c in candles]
-    rsi    = [c.get("rsi")   for c in candles]
-    hist   = [c.get("hist")  for c in candles]
+    ma5    = [c.get("ma5")  for c in candles]
+    ma20   = [c.get("ma20") for c in candles]
+    rsi    = [c.get("rsi")  for c in candles]
+    hist   = [c.get("hist") for c in candles]
     avg_vol = sum(v for v in vols if v) / len(vols)
 
     for i in range(MIN_CANDLES, n-20):
@@ -212,7 +196,6 @@ def detect_game_points(candles):
         if vols[i] > avg_vol*2.5 and closes[i] < closes[i-1]*0.98:
             points.append({"index":i,"type":"volume_surge_down","label":"거래량급증하락"})
 
-    # 최소 30일 간격 필터링
     filtered, last_idx = [], -999
     for p in sorted(points, key=lambda x: x["index"]):
         if p["index"]-last_idx >= 30:
@@ -223,12 +206,11 @@ def detect_game_points(candles):
 # ── 수집 & 처리 ───────────────────────────────────────────────
 def fetch_and_process(stock_info):
     ticker = stock_info["ticker"]
-    print(f"  수집 중: {stock_info['name']} ({ticker})", end="", flush=True)
+    difficulty = stock_info.get("difficulty","normal")
+    print(f"  [{difficulty}] {stock_info['name']} ({ticker})", end="", flush=True)
     try:
         df = yf.download(ticker, period=PERIOD, interval="1d", progress=False, auto_adjust=True)
-        if df.empty:
-            print(" → 데이터 없음")
-            return None
+        if df.empty: print(" → 데이터 없음"); return None
         df = df.dropna()
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = df.columns.get_level_values(0)
@@ -252,20 +234,29 @@ def fetch_and_process(stock_info):
                     "rsi":rsi[i],"macd":macd[i],"signal":signal[i],"hist":histogram[i]}
                    for i in range(len(dates))]
 
-        game_points = detect_game_points(candles)
-        print(f" → {len(candles)}일치 / 포인트 {len(game_points)}개")
+        all_points = detect_game_points(candles)
 
-        if len(game_points) < MIN_GAME_POINTS:
-            print(f"    !! 포인트 부족 ({len(game_points)}개) — 제외")
-            return None
+        # 난이도별 포인트 필터링
+        allowed = DIFFICULTY_POINTS.get(difficulty, DIFFICULTY_POINTS["normal"])
+        filtered_points = [p for p in all_points if p["type"] in allowed]
+
+        print(f" → {len(candles)}일치 / 전체포인트 {len(all_points)}개 / {difficulty}포인트 {len(filtered_points)}개")
+
+        if len(filtered_points) < MIN_GAME_POINTS:
+            # 포인트 부족 시 전체 포인트로 보완
+            filtered_points = all_points
+            if len(filtered_points) < MIN_GAME_POINTS:
+                print(f"    !! 포인트 부족 — 제외")
+                return None
 
         return {
             "ticker":      ticker,
             "name":        stock_info["name"],
+            "difficulty":  difficulty,
             "currency":    "KRW" if ticker.endswith(".KS") else "USD",
             "total":       len(candles),
             "updated":     datetime.now().strftime("%Y-%m-%d"),
-            "game_points": game_points,
+            "game_points": filtered_points,
             "candles":     candles,
         }
     except Exception as e:
@@ -276,36 +267,35 @@ def fetch_and_process(stock_info):
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     index = []
-    success = fail = skipped = 0
+    success = fail = 0
 
     for stock in ALL_STOCKS:
         data = fetch_and_process(stock)
-        if data is None:
-            fail += 1
-            continue
+        if data is None: fail+=1; continue
 
         filename = stock["ticker"].replace(".", "_") + ".json"
-        filepath = os.path.join(OUTPUT_DIR, filename)
-        with open(filepath, "w", encoding="utf-8") as f:
+        with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, separators=(",",":"))
 
         index.append({
             "ticker":      stock["ticker"],
             "name":        stock["name"],
+            "difficulty":  data["difficulty"],
             "file":        filename,
             "total":       data["total"],
             "currency":    data["currency"],
             "game_points": len(data["game_points"]),
             "updated":     data["updated"],
         })
-        success += 1
+        success+=1
 
-    index_path = os.path.join(OUTPUT_DIR, "index.json")
-    with open(index_path, "w", encoding="utf-8") as f:
+    with open(os.path.join(OUTPUT_DIR,"index.json"), "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, indent=2)
 
-    print(f"\n완료! 성공 {success}개 / 실패·제외 {fail}개")
-    print(f"총 종목: {success}개 → {OUTPUT_DIR}/index.json")
+    easy   = sum(1 for s in index if s["difficulty"]=="easy")
+    normal = sum(1 for s in index if s["difficulty"]=="normal")
+    hard   = sum(1 for s in index if s["difficulty"]=="hard")
+    print(f"\n완료! 총 {success}개 (쉬움:{easy} / 보통:{normal} / 어려움:{hard}) / 실패:{fail}개")
 
 if __name__ == "__main__":
     main()

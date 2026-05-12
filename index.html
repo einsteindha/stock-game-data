@@ -22,12 +22,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .ct{font-size:11px;color:#666;margin-bottom:6px}
 .sub-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .sub-box{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:8px}
-@media(max-width:600px){
-  .sub-grid{grid-template-columns:1fr}
-  .top-bar{grid-template-columns:1fr 1fr}
-  .order-panel{grid-template-columns:1fr}
-  .stock-select-grid{grid-template-columns:1fr 1fr}
-}
 .sub-lbl{font-size:11px;color:#666;margin-bottom:4px}
 .info-box{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:8px 14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .info-item{font-size:12px;color:#888}
@@ -59,19 +53,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px}
 .spin{width:32px;height:32px;border:2px solid #2a2a2a;border-top-color:#378ADD;border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* 난이도 선택 */
+.diff-screen{display:none;padding:8px 0}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px}
+.diff-card{padding:24px 16px;border-radius:12px;border:0.5px solid #2a2a2a;cursor:pointer;background:#1a1a1a;text-align:center;transition:all 0.15s}
+.diff-card:hover{transform:translateY(-2px);border-color:#444}
+.diff-card .diff-emoji{font-size:32px;margin-bottom:10px}
+.diff-card .diff-name{font-size:16px;font-weight:600;margin-bottom:6px}
+.diff-card .diff-desc{font-size:11px;color:#555;line-height:1.6}
+.diff-card.easy:hover{border-color:#1D9E75;background:#0d1f17}
+.diff-card.normal:hover{border-color:#378ADD;background:#0d1a2a}
+.diff-card.hard:hover{border-color:#E24B4A;background:#2a0d0d}
+.diff-card .diff-name.easy{color:#1D9E75}
+.diff-card .diff-name.normal{color:#378ADD}
+.diff-card .diff-name.hard{color:#E24B4A}
+
+/* 종목 선택 */
 .stock-select-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
 .stock-card{padding:14px;border-radius:8px;border:0.5px solid #2a2a2a;cursor:pointer;background:#1a1a1a;transition:background 0.15s}
 .stock-card:hover{background:#252525;border-color:#444}
 .stock-card .snum{font-size:18px;font-weight:600;color:#e0e0e0;margin-bottom:4px}
 .stock-card .sinfo{font-size:11px;color:#555}
+
+/* 랭킹 */
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.75);z-index:100;align-items:center;justify-content:center}
 .modal-overlay.show{display:flex}
-.modal{background:#1a1a1a;border-radius:12px;padding:24px;width:92%;max-width:520px;border:0.5px solid #333;max-height:90vh;overflow-y:auto}
+.modal{background:#1a1a1a;border-radius:12px;padding:24px;width:92%;max-width:560px;border:0.5px solid #333;max-height:90vh;overflow-y:auto}
 .modal h2{font-size:18px;font-weight:500;margin-bottom:16px;text-align:center;color:#e0e0e0}
 .modal-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid #2a2a2a;font-size:13px;color:#e0e0e0}
 .tlog{max-height:120px;overflow-y:auto;margin-top:10px;font-size:11px;color:#888}
 .tlog div{padding:3px 0;border-bottom:0.5px solid #2a2a2a}
 .modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+.ranking-screen{display:none}
+.ranking-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ranking-title{font-size:15px;font-weight:500;color:#e0e0e0}
+.rank-filter{display:flex;gap:6px;margin-bottom:12px}
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{font-size:11px;color:#555;font-weight:400;padding:6px 8px;border-bottom:0.5px solid #2a2a2a;text-align:left}
+.rank-table td{font-size:12px;padding:7px 8px;border-bottom:0.5px solid #1a1a1a;vertical-align:middle}
+.rank-table tr:hover td{background:#1a1a1a}
+.rank-num{font-size:14px;font-weight:600;color:#555;width:28px}
+.rank-num.gold{color:#FFD700}.rank-num.silver{color:#C0C0C0}.rank-num.bronze{color:#CD7F32}
+.rank-ret{font-weight:600;font-size:13px}
+.rank-empty{text-align:center;color:#444;padding:32px;font-size:13px}
+.diff-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:500}
+.diff-badge.easy{background:#0d1f17;color:#1D9E75;border:0.5px solid #1D9E75}
+.diff-badge.normal{background:#0d1a2a;color:#378ADD;border:0.5px solid #378ADD}
+.diff-badge.hard{background:#2a0d0d;color:#E24B4A;border:0.5px solid #E24B4A}
+.new-record{background:#1a2a1a;border:0.5px solid #2a4a2a;border-radius:8px;padding:10px 14px;font-size:13px;color:#1D9E75;margin-bottom:12px;text-align:center}
+
 .shake{animation:shk 0.4s}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;align-items:center;justify-content:space-between}
@@ -82,24 +113,14 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .point-nav{display:flex;align-items:center;gap:6px;font-size:12px;color:#666;padding:4px 2px}
 .point-dot{width:8px;height:8px;border-radius:50%;background:#333;flex-shrink:0;transition:background 0.2s}
-.point-dot.done{background:#1D9E75}
-.point-dot.current{background:#378ADD}
-
-/* 랭킹 화면 */
-.ranking-screen{display:none}
-.ranking-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.ranking-title{font-size:15px;font-weight:500;color:#e0e0e0}
-.rank-table{width:100%;border-collapse:collapse}
-.rank-table th{font-size:11px;color:#555;font-weight:400;padding:6px 8px;border-bottom:0.5px solid #2a2a2a;text-align:left}
-.rank-table td{font-size:12px;padding:8px 8px;border-bottom:0.5px solid #1a1a1a;vertical-align:middle}
-.rank-table tr:hover td{background:#1a1a1a}
-.rank-num{font-size:14px;font-weight:600;color:#555;width:28px}
-.rank-num.gold{color:#FFD700}
-.rank-num.silver{color:#C0C0C0}
-.rank-num.bronze{color:#CD7F32}
-.rank-ret{font-weight:600;font-size:13px}
-.rank-empty{text-align:center;color:#444;padding:32px;font-size:13px}
-.new-record{background:#1a2a1a;border:0.5px solid #2a4a2a;border-radius:8px;padding:10px 14px;font-size:13px;color:#1D9E75;margin-bottom:12px;text-align:center}
+.point-dot.done{background:#1D9E75}.point-dot.current{background:#378ADD}
+@media(max-width:600px){
+  .sub-grid{grid-template-columns:1fr}
+  .top-bar{grid-template-columns:1fr 1fr}
+  .order-panel{grid-template-columns:1fr}
+  .stock-select-grid{grid-template-columns:1fr 1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -115,23 +136,76 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
     <div style="font-size:11px;color:#555" id="loadingDetail"></div>
   </div>
 
+  <!-- 난이도 선택 -->
+  <div id="diffScreen" class="diff-screen">
+    <div style="font-size:15px;font-weight:500;color:#e0e0e0;margin-bottom:4px">난이도 선택</div>
+    <div style="font-size:12px;color:#555">종목 유형과 신호 난이도가 달라집니다</div>
+    <div class="diff-grid">
+      <div class="diff-card easy" onclick="selectDifficulty('easy')">
+        <div class="diff-emoji">🟢</div>
+        <div class="diff-name easy">쉬움</div>
+        <div class="diff-desc">
+          대형 우량주<br>
+          (삼성전자, KB금융 등)<br><br>
+          골든크로스 · 데드크로스<br>
+          명확한 신호 위주
+        </div>
+      </div>
+      <div class="diff-card normal" onclick="selectDifficulty('normal')">
+        <div class="diff-emoji">🔵</div>
+        <div class="diff-name normal">보통</div>
+        <div class="diff-desc">
+          중형주 · 성장주<br>
+          (NAVER, NVDA 등)<br><br>
+          RSI · MACD 신호<br>
+          복합 판단 필요
+        </div>
+      </div>
+      <div class="diff-card hard" onclick="selectDifficulty('hard')">
+        <div class="diff-emoji">🔴</div>
+        <div class="diff-name hard">어려움</div>
+        <div class="diff-desc">
+          고변동성 종목<br>
+          (에코프로, TSLA 등)<br><br>
+          가짜 돌파 · 거래량 함정<br>
+          까다로운 신호
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종목 선택 -->
   <div id="stockSelectScreen" style="display:none">
-    <div style="font-size:15px;font-weight:500;color:#e0e0e0;margin-bottom:4px">종목 선택</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div>
+        <div style="font-size:15px;font-weight:500;color:#e0e0e0;display:inline">종목 선택</div>
+        <span class="diff-badge" id="selectedDiffBadge" style="margin-left:8px"></span>
+      </div>
+      <button class="tbtn" onclick="showDiffSelect()">← 난이도 변경</button>
+    </div>
     <div style="font-size:12px;color:#555;margin-bottom:2px">완전 블라인드 모드 — 기술적 분석으로만 판단하세요</div>
     <div class="stock-select-grid" id="stockSelectGrid"></div>
   </div>
 
+  <!-- 랭킹 -->
   <div id="rankingScreen" class="ranking-screen">
     <div class="ranking-header">
       <div class="ranking-title">🏆 전체 랭킹</div>
       <div style="display:flex;gap:8px">
         <button class="tbtn" onclick="clearRanking()" style="color:#E24B4A;border-color:#3a1a1a">기록 초기화</button>
-        <button class="tbtn" onclick="showStockSelect()">← 돌아가기</button>
+        <button class="tbtn" onclick="showDiffSelect()">← 돌아가기</button>
       </div>
+    </div>
+    <div class="rank-filter" id="rankFilter">
+      <button class="tbtn active" onclick="filterRanking('all')">전체</button>
+      <button class="tbtn" onclick="filterRanking('easy')">🟢 쉬움</button>
+      <button class="tbtn" onclick="filterRanking('normal')">🔵 보통</button>
+      <button class="tbtn" onclick="filterRanking('hard')">🔴 어려움</button>
     </div>
     <div id="rankingBody"></div>
   </div>
 
+  <!-- 게임 화면 -->
   <div id="gameScreen" style="display:none">
     <div class="top-bar">
       <div class="metric"><div class="lbl">보유 현금</div><div class="val" id="cashEl">₩100,000,000</div></div>
@@ -142,7 +216,10 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
 
     <div class="chart-box">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <div class="ct" id="chartTitle">블라인드 모드</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="ct" id="chartTitle">블라인드 모드</div>
+          <span class="diff-badge" id="gameDiffBadge"></span>
+        </div>
         <div style="display:flex;gap:6px">
           <button class="tbtn" onclick="showRanking()">🏆 랭킹</button>
           <button class="tbtn" onclick="goSelectStock()">↺ 종목 변경</button>
@@ -251,7 +328,7 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
 <div class="modal-overlay" id="resultModal">
   <div class="modal">
     <h2 id="modalTitle">게임 종료</h2>
-    <div id="newRecordBanner" style="display:none" class="new-record">🎉 신기록! 랭킹에 등록됐습니다</div>
+    <div id="newRecordBanner" style="display:none" class="new-record"></div>
     <div id="modalBody"></div>
     <div class="modal-btns">
       <button class="next-btn" onclick="showRankingFromResult()">🏆 랭킹 보기</button>
@@ -265,8 +342,10 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
 var BASE_URL  = 'https://einsteindha.github.io/stock-game-data/stock_data/';
 var INDEX_URL = 'https://einsteindha.github.io/stock-game-data/stock_data/index.json';
 var INIT_CASH = 100000000;
-var RANKING_KEY = 'stock_game_ranking_v1';
-var MAX_RANKING = 50;
+var RANKING_KEY = 'stock_game_ranking_v2';
+var MAX_RANKING = 100;
+var currentDifficulty = 'normal';
+var rankFilter = 'all';
 
 var orderMode = {buy:'qty', sell:'qty'};
 var stockIndex = [], stockData = null, state = {};
@@ -274,461 +353,328 @@ var periodSize = 1;
 var maVisible  = {5:true, 20:true, 60:true};
 
 var G = {
-  mainChart:null, volChart:null, rsiChart:null, macdChart:null,
-  candle:null, ma5:null, ma20:null, ma60:null,
-  vol:null, rsi:null, rsi70:null, rsi30:null,
-  macdH:null, macdL:null, macdS:null
+  mainChart:null,volChart:null,rsiChart:null,macdChart:null,
+  candle:null,ma5:null,ma20:null,ma60:null,
+  vol:null,rsi:null,rsi70:null,rsi30:null,
+  macdH:null,macdL:null,macdS:null
 };
 
 var DARK = {
-  layout:{background:{color:'#1a1a1a'}, textColor:'#888'},
-  grid:{vertLines:{color:'rgba(255,255,255,0.04)'}, horzLines:{color:'rgba(255,255,255,0.04)'}},
+  layout:{background:{color:'#1a1a1a'},textColor:'#888'},
+  grid:{vertLines:{color:'rgba(255,255,255,0.04)'},horzLines:{color:'rgba(255,255,255,0.04)'}},
   crosshair:{mode:1},
   rightPriceScale:{borderColor:'#2a2a2a'},
-  timeScale:{borderColor:'#2a2a2a', timeVisible:true, secondsVisible:false}
+  timeScale:{borderColor:'#2a2a2a',timeVisible:true,secondsVisible:false}
 };
 
-// ── 랭킹 로직 ─────────────────────────────────────────────────
-function getRanking() {
-  try {
-    var raw = localStorage.getItem(RANKING_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch(e) { return []; }
-}
+var DIFF_LABELS = {easy:'🟢 쉬움', normal:'🔵 보통', hard:'🔴 어려움'};
+var DIFF_CLASSES = {easy:'easy', normal:'normal', hard:'hard'};
 
-function saveRanking(list) {
-  try { localStorage.setItem(RANKING_KEY, JSON.stringify(list)); } catch(e) {}
-}
-
-function addRecord(record) {
-  var list = getRanking();
+// ── 랭킹 ─────────────────────────────────────────────────────
+function getRanking(){try{var r=localStorage.getItem(RANKING_KEY);return r?JSON.parse(r):[]}catch(e){return[];}}
+function saveRanking(list){try{localStorage.setItem(RANKING_KEY,JSON.stringify(list));}catch(e){}}
+function addRecord(record){
+  var list=getRanking();
   list.push(record);
-  list.sort(function(a,b){ return b.ret - a.ret; });
-  if (list.length > MAX_RANKING) list = list.slice(0, MAX_RANKING);
+  list.sort(function(a,b){return b.ret-a.ret;});
+  if(list.length>MAX_RANKING)list=list.slice(0,MAX_RANKING);
   saveRanking(list);
-  // 내 기록의 순위 반환
-  for (var i=0; i<list.length; i++) {
-    if (list[i].id === record.id) return i+1;
-  }
+  for(var i=0;i<list.length;i++){if(list[i].id===record.id)return i+1;}
   return null;
 }
+function clearRanking(){if(confirm('모든 랭킹 기록을 초기화할까요?')){localStorage.removeItem(RANKING_KEY);renderRanking();}}
 
-function clearRanking() {
-  if (confirm('모든 랭킹 기록을 초기화할까요?')) {
-    localStorage.removeItem(RANKING_KEY);
-    renderRanking();
-  }
-}
-
-function renderRanking() {
-  var list = getRanking();
-  var body = document.getElementById('rankingBody');
-  if (!list.length) {
-    body.innerHTML = '<div class="rank-empty">아직 기록이 없습니다.<br>게임을 완료하면 자동으로 등록됩니다.</div>';
-    return;
-  }
-  var html = '<table class="rank-table"><thead><tr>' +
-    '<th>순위</th><th>수익률</th><th>손익</th><th>종목</th><th>구간</th><th>거래</th><th>날짜</th>' +
-    '</tr></thead><tbody>';
-  list.forEach(function(r, i) {
-    var numClass = i===0?'gold':i===1?'silver':i===2?'bronze':'';
-    var retColor = r.ret>=0 ? '#1D9E75' : '#E24B4A';
-    var retSign  = r.ret>=0 ? '+' : '';
-    var pnlSign  = r.pnl>=0 ? '+' : '';
-    html += '<tr>' +
-      '<td><span class="rank-num '+numClass+'">'+(i+1)+'</span></td>' +
-      '<td><span class="rank-ret" style="color:'+retColor+'">'+retSign+r.ret.toFixed(2)+'%</span></td>' +
-      '<td style="color:'+retColor+';font-size:11px">'+pnlSign+Math.round(r.pnl).toLocaleString()+'원</td>' +
-      '<td style="color:#aaa">'+r.stockName+'</td>' +
-      '<td style="color:#555;font-size:11px">'+r.periodStart+' ~<br>'+r.periodEnd+'</td>' +
-      '<td style="color:#555;font-size:11px">'+r.trades+'회</td>' +
-      '<td style="color:#444;font-size:10px">'+r.playedAt+'</td>' +
-      '</tr>';
-  });
-  html += '</tbody></table>';
-  body.innerHTML = html;
-}
-
-function showRanking() {
-  hideAll();
-  document.getElementById('rankingScreen').style.display = 'block';
+function filterRanking(diff){
+  rankFilter=diff;
+  document.querySelectorAll('#rankFilter .tbtn').forEach(function(b){b.classList.remove('active');});
+  event.target.classList.add('active');
   renderRanking();
 }
 
-function showRankingFromResult() {
-  document.getElementById('resultModal').classList.remove('show');
-  showRanking();
+function renderRanking(){
+  var list=getRanking();
+  if(rankFilter!=='all') list=list.filter(function(r){return r.difficulty===rankFilter;});
+  var body=document.getElementById('rankingBody');
+  if(!list.length){body.innerHTML='<div class="rank-empty">아직 기록이 없습니다.<br>게임을 완료하면 자동으로 등록됩니다.</div>';return;}
+  var html='<table class="rank-table"><thead><tr><th>순위</th><th>수익률</th><th>손익</th><th>난이도</th><th>종목</th><th>구간</th><th>날짜</th></tr></thead><tbody>';
+  list.forEach(function(r,i){
+    var nc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    var rc=r.ret>=0?'#1D9E75':'#E24B4A';
+    html+='<tr>'+
+      '<td><span class="rank-num '+nc+'">'+(i+1)+'</span></td>'+
+      '<td><span class="rank-ret" style="color:'+rc+'">'+(r.ret>=0?'+':'')+r.ret.toFixed(2)+'%</span></td>'+
+      '<td style="color:'+rc+';font-size:11px">'+(r.pnl>=0?'+':'')+Math.round(r.pnl).toLocaleString()+'원</td>'+
+      '<td><span class="diff-badge '+(r.difficulty||'normal')+'">'+(DIFF_LABELS[r.difficulty]||'보통')+'</span></td>'+
+      '<td style="color:#aaa;font-size:12px">'+r.stockName+'</td>'+
+      '<td style="color:#555;font-size:10px">'+r.periodStart+'~<br>'+r.periodEnd+'</td>'+
+      '<td style="color:#444;font-size:10px">'+r.playedAt+'</td>'+
+      '</tr>';
+  });
+  html+='</tbody></table>';
+  body.innerHTML=html;
 }
 
+function showRanking(){hideAll();document.getElementById('rankingScreen').style.display='block';renderRanking();}
+function showRankingFromResult(){document.getElementById('resultModal').classList.remove('show');showRanking();}
+
 // ── 화면 전환 ─────────────────────────────────────────────────
-function hideAll() {
-  ['loadingScreen','stockSelectScreen','gameScreen','rankingScreen'].forEach(function(id){
-    document.getElementById(id).style.display = 'none';
+function hideAll(){
+  ['loadingScreen','diffScreen','stockSelectScreen','gameScreen','rankingScreen'].forEach(function(id){
+    document.getElementById(id).style.display='none';
   });
 }
 
-function loadScript(src) {
-  return new Promise(function(resolve, reject) {
-    var s = document.createElement('script');
-    s.src = src; s.onload = resolve; s.onerror = reject;
+function showDiffSelect(){hideAll();document.getElementById('resultModal').classList.remove('show');document.getElementById('diffScreen').style.display='block';}
+
+function selectDifficulty(diff){
+  currentDifficulty=diff;
+  var badge=document.getElementById('selectedDiffBadge');
+  badge.textContent=DIFF_LABELS[diff];
+  badge.className='diff-badge '+DIFF_CLASSES[diff];
+  showStockSelect();
+}
+
+function loadScript(src){
+  return new Promise(function(resolve,reject){
+    var s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;
     document.head.appendChild(s);
   });
 }
 
-async function init() {
-  try {
-    document.getElementById('loadingMsg').textContent = '차트 라이브러리 로딩 중...';
+async function init(){
+  try{
+    document.getElementById('loadingMsg').textContent='차트 라이브러리 로딩 중...';
     await loadScript('https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js');
-    document.getElementById('loadingMsg').textContent = '종목 목록 불러오는 중...';
-    var res = await fetch(INDEX_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    stockIndex = await res.json();
-    showStockSelect();
-  } catch(e) {
-    document.getElementById('loadingMsg').textContent = '로드 실패 — 페이지를 새로고침해 주세요';
-    document.getElementById('loadingDetail').textContent = e.message;
+    document.getElementById('loadingMsg').textContent='종목 목록 불러오는 중...';
+    var res=await fetch(INDEX_URL);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    stockIndex=await res.json();
+    showDiffSelect();
+  }catch(e){
+    document.getElementById('loadingMsg').textContent='로드 실패 — 페이지를 새로고침해 주세요';
+    document.getElementById('loadingDetail').textContent=e.message;
   }
 }
 
-function showStockSelect() {
+function showStockSelect(){
   hideAll();
-  document.getElementById('resultModal').classList.remove('show');
-  document.getElementById('stockSelectScreen').style.display = 'block';
-  var grid = document.getElementById('stockSelectGrid');
-  grid.innerHTML = '';
-  var shuffled = stockIndex.slice().sort(function(){return Math.random()-0.5;});
-  shuffled.forEach(function(s, i) {
-    var div = document.createElement('div');
-    div.className = 'stock-card';
-    div.innerHTML =
-      '<div class="snum">종목 #'+(i+1)+'</div>' +
-      '<div class="sinfo">'+s.total.toLocaleString()+'일치 · 포인트 '+(s.game_points||0)+'개</div>';
-    div.onclick = (function(stock){ return function(){ loadStock(stock); }; })(s);
+  document.getElementById('stockSelectScreen').style.display='block';
+  var filtered=stockIndex.filter(function(s){return s.difficulty===currentDifficulty;});
+  var shuffled=filtered.slice().sort(function(){return Math.random()-0.5;});
+  var grid=document.getElementById('stockSelectGrid');
+  grid.innerHTML='';
+  if(!shuffled.length){
+    grid.innerHTML='<div style="color:#555;padding:24px;grid-column:1/-1">이 난이도의 종목이 없습니다.</div>';
+    return;
+  }
+  shuffled.forEach(function(s,i){
+    var div=document.createElement('div');
+    div.className='stock-card';
+    div.innerHTML='<div class="snum">종목 #'+(i+1)+'</div><div class="sinfo">'+s.total.toLocaleString()+'일치 · 포인트 '+(s.game_points||0)+'개</div>';
+    div.onclick=(function(stock){return function(){loadStock(stock);};})(s);
     grid.appendChild(div);
   });
 }
 
-async function loadStock(info) {
+async function loadStock(info){
   hideAll();
-  document.getElementById('loadingScreen').style.display = 'flex';
-  document.getElementById('loadingMsg').textContent = '데이터 불러오는 중...';
-  document.getElementById('loadingDetail').textContent = '';
-  try {
-    var res = await fetch(BASE_URL + info.file);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    stockData = await res.json();
+  document.getElementById('loadingScreen').style.display='flex';
+  document.getElementById('loadingMsg').textContent='데이터 불러오는 중...';
+  document.getElementById('loadingDetail').textContent='';
+  try{
+    var res=await fetch(BASE_URL+info.file);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    stockData=await res.json();
     initGame();
-  } catch(e) {
-    document.getElementById('loadingMsg').textContent = '로드 실패 — 새로고침 후 다시 시도해 주세요';
-    document.getElementById('loadingDetail').textContent = e.message;
+  }catch(e){
+    document.getElementById('loadingMsg').textContent='로드 실패 — 새로고침 후 다시 시도해 주세요';
+    document.getElementById('loadingDetail').textContent=e.message;
   }
 }
 
-function goSelectStock() {
-  document.getElementById('resultModal').classList.remove('show');
+function goSelectStock(){document.getElementById('resultModal').classList.remove('show');destroyCharts();showStockSelect();}
+function restartSameStock(){document.getElementById('resultModal').classList.remove('show');initGame();}
+
+function destroyCharts(){
+  ['mainChart','volChart','rsiChart','macdChart'].forEach(function(k){if(G[k]){G[k].remove();G[k]=null;}});
+  G.candle=G.ma5=G.ma20=G.ma60=null;G.vol=G.rsi=G.rsi70=G.rsi30=null;G.macdH=G.macdL=G.macdS=null;
+  ['mainChartDiv','volChartDiv','rsiChartDiv','macdChartDiv'].forEach(function(id){document.getElementById(id).innerHTML='';});
+}
+
+function buildCharts(){
   destroyCharts();
-  showStockSelect();
-}
-function restartSameStock() {
-  document.getElementById('resultModal').classList.remove('show');
-  initGame();
-}
-
-function destroyCharts() {
-  ['mainChart','volChart','rsiChart','macdChart'].forEach(function(k){
-    if(G[k]){ G[k].remove(); G[k]=null; }
-  });
-  G.candle=G.ma5=G.ma20=G.ma60=null;
-  G.vol=G.rsi=G.rsi70=G.rsi30=null;
-  G.macdH=G.macdL=G.macdS=null;
-  ['mainChartDiv','volChartDiv','rsiChartDiv','macdChartDiv'].forEach(function(id){
-    document.getElementById(id).innerHTML='';
-  });
-}
-
-function buildCharts() {
-  destroyCharts();
-  G.mainChart = LightweightCharts.createChart(document.getElementById('mainChartDiv'),
-    Object.assign({}, DARK, {height:320, handleScroll:true, handleScale:true}));
-  G.candle = G.mainChart.addCandlestickSeries({
-    upColor:'#1D9E75', downColor:'#E24B4A',
-    borderUpColor:'#1D9E75', borderDownColor:'#E24B4A',
-    wickUpColor:'#1D9E75', wickDownColor:'#E24B4A'
-  });
-  G.ma5  = G.mainChart.addLineSeries({color:'#FAC775', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.ma20 = G.mainChart.addLineSeries({color:'#85B7EB', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.ma60 = G.mainChart.addLineSeries({color:'#F09595', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-
-  var sub = Object.assign({}, DARK, {height:90, handleScroll:false, handleScale:false,
-    timeScale: Object.assign({}, DARK.timeScale, {visible:false})});
-  G.volChart  = LightweightCharts.createChart(document.getElementById('volChartDiv'),  sub);
-  G.vol       = G.volChart.addHistogramSeries({priceLineVisible:false, lastValueVisible:false});
-  G.rsiChart  = LightweightCharts.createChart(document.getElementById('rsiChartDiv'),  sub);
-  G.rsi       = G.rsiChart.addLineSeries({color:'#7F77DD', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.rsi70     = G.rsiChart.addLineSeries({color:'rgba(226,75,74,0.5)',  lineWidth:1, lineStyle:2, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.rsi30     = G.rsiChart.addLineSeries({color:'rgba(29,158,117,0.5)', lineWidth:1, lineStyle:2, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.macdChart = LightweightCharts.createChart(document.getElementById('macdChartDiv'), sub);
-  G.macdH     = G.macdChart.addHistogramSeries({priceLineVisible:false, lastValueVisible:false});
-  G.macdL     = G.macdChart.addLineSeries({color:'#378ADD', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
-  G.macdS     = G.macdChart.addLineSeries({color:'#EF9F27', lineWidth:1.5, priceLineVisible:false, lastValueVisible:false, crosshairMarkerVisible:false});
+  G.mainChart=LightweightCharts.createChart(document.getElementById('mainChartDiv'),Object.assign({},DARK,{height:320,handleScroll:true,handleScale:true}));
+  G.candle=G.mainChart.addCandlestickSeries({upColor:'#1D9E75',downColor:'#E24B4A',borderUpColor:'#1D9E75',borderDownColor:'#E24B4A',wickUpColor:'#1D9E75',wickDownColor:'#E24B4A'});
+  G.ma5=G.mainChart.addLineSeries({color:'#FAC775',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.ma20=G.mainChart.addLineSeries({color:'#85B7EB',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.ma60=G.mainChart.addLineSeries({color:'#F09595',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  var sub=Object.assign({},DARK,{height:110,handleScroll:false,handleScale:false,timeScale:Object.assign({},DARK.timeScale,{visible:false})});
+  G.volChart=LightweightCharts.createChart(document.getElementById('volChartDiv'),sub);
+  G.vol=G.volChart.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
+  G.rsiChart=LightweightCharts.createChart(document.getElementById('rsiChartDiv'),sub);
+  G.rsi=G.rsiChart.addLineSeries({color:'#7F77DD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.rsi70=G.rsiChart.addLineSeries({color:'rgba(226,75,74,0.5)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.rsi30=G.rsiChart.addLineSeries({color:'rgba(29,158,117,0.5)',lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.macdChart=LightweightCharts.createChart(document.getElementById('macdChartDiv'),sub);
+  G.macdH=G.macdChart.addHistogramSeries({priceLineVisible:false,lastValueVisible:false});
+  G.macdL=G.macdChart.addLineSeries({color:'#378ADD',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+  G.macdS=G.macdChart.addLineSeries({color:'#EF9F27',lineWidth:1.5,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
 }
 
-function initGame() {
-  var candles    = stockData.candles;
-  var gamePoints = stockData.game_points || [];
+function initGame(){
+  var candles=stockData.candles;
+  var gamePoints=stockData.game_points||[];
   var selected;
-  if (gamePoints.length >= 10) {
-    selected = gamePoints.slice().sort(function(){return Math.random()-0.5;})
-      .slice(0,10).sort(function(a,b){return a.index-b.index;});
-  } else {
-    selected = [];
-    var s2 = Math.floor(candles.length*0.2);
-    var e2 = Math.floor(candles.length*0.9);
-    var st = Math.floor((e2-s2)/10);
-    for (var i=0; i<10; i++) selected.push({index:s2+st*i+Math.floor(Math.random()*st*0.5), type:'manual'});
+  if(gamePoints.length>=10){
+    selected=gamePoints.slice().sort(function(){return Math.random()-0.5;}).slice(0,10).sort(function(a,b){return a.index-b.index;});
+  }else{
+    selected=[];
+    var s2=Math.floor(candles.length*0.2),e2=Math.floor(candles.length*0.9),st=Math.floor((e2-s2)/10);
+    for(var i=0;i<10;i++)selected.push({index:s2+st*i+Math.floor(Math.random()*st*0.5),type:'manual'});
   }
-
-  state = {
-    candles: candles, gamePoints: selected,
-    step:0, totalSteps: selected.length,
-    cash: INIT_CASH, shares:0, avgPrice:0,
-    trades:[], initCash: INIT_CASH,
-    stockName: stockData.name,
-    currency: stockData.currency||'KRW',
-    startDate: candles[selected[0].index].date,
-  };
-
+  state={candles:candles,gamePoints:selected,step:0,totalSteps:selected.length,
+    cash:INIT_CASH,shares:0,avgPrice:0,trades:[],initCash:INIT_CASH,
+    stockName:stockData.name,currency:stockData.currency||'KRW',
+    difficulty:currentDifficulty,startDate:candles[selected[0].index].date};
   periodSize=1;
-  document.querySelectorAll('#periodBtns .tbtn').forEach(function(b){
-    b.classList.toggle('active', parseInt(b.dataset.period)===1);
-  });
-  hideAll();
-  document.getElementById('resultModal').classList.remove('show');
-  document.getElementById('gameScreen').style.display = 'block';
-  buildCharts();
-  setTab('buy','qty'); setTab('sell','qty');
-  clearInputs(); updatePointNav(); updateCharts(); updateUI();
+  document.querySelectorAll('#periodBtns .tbtn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.period)===1);});
+  // 난이도 배지
+  var db=document.getElementById('gameDiffBadge');
+  db.textContent=DIFF_LABELS[currentDifficulty];
+  db.className='diff-badge '+DIFF_CLASSES[currentDifficulty];
+  hideAll();document.getElementById('resultModal').classList.remove('show');
+  document.getElementById('gameScreen').style.display='block';
+  buildCharts();setTab('buy','qty');setTab('sell','qty');
+  clearInputs();updatePointNav();updateCharts();updateUI();
 }
 
-function getCurrentPointIndex() { return state.gamePoints[state.step].index; }
+function getCurrentPointIndex(){return state.gamePoints[state.step].index;}
+function getVisible(){var pt=getCurrentPointIndex();return state.candles.slice(Math.max(0,pt-80),pt+1);}
+function curPrice(){var v=getVisible();return v[v.length-1].c;}
+function fmtPrice(v){return state.currency==='KRW'?'₩'+Math.round(v).toLocaleString():'$'+v.toFixed(2);}
+function toTs(d){var p=d.split('-').map(Number);return Date.UTC(p[0],p[1]-1,p[2])/1000;}
 
-function getVisible() {
-  var ptIdx = getCurrentPointIndex();
-  var start = Math.max(0, ptIdx-80);
-  return state.candles.slice(start, ptIdx+1);
-}
-function curPrice() { var v=getVisible(); return v[v.length-1].c; }
-function fmtPrice(v) { return state.currency==='KRW'?'₩'+Math.round(v).toLocaleString():'$'+v.toFixed(2); }
-function toTs(d) { var p=d.split('-').map(Number); return Date.UTC(p[0],p[1]-1,p[2])/1000; }
-
-function aggregateBars(data, period) {
-  if (period===1) return data.map(function(d){
-    return {time:toTs(d.date),open:d.o,high:d.h,low:d.l,close:d.c,
-            volume:d.v,rsi:d.rsi,ma5:d.ma5,ma20:d.ma20,ma60:d.ma60,
-            macd:d.macd,signal:d.signal,hist:d.hist,date:d.date};
-  });
+function aggregateBars(data,period){
+  if(period===1)return data.map(function(d){return{time:toTs(d.date),open:d.o,high:d.h,low:d.l,close:d.c,volume:d.v,rsi:d.rsi,ma5:d.ma5,ma20:d.ma20,ma60:d.ma60,macd:d.macd,signal:d.signal,hist:d.hist,date:d.date};});
   var out=[];
   for(var i=0;i<data.length;i+=period){
-    var chunk=data.slice(i,Math.min(i+period,data.length));
-    if(!chunk.length)continue;
+    var chunk=data.slice(i,Math.min(i+period,data.length));if(!chunk.length)continue;
     var last=chunk[chunk.length-1];
-    out.push({time:toTs(last.date),open:chunk[0].o,
-      high:Math.max.apply(null,chunk.map(function(d){return d.h;})),
-      low:Math.min.apply(null,chunk.map(function(d){return d.l;})),
-      close:last.c,volume:chunk.reduce(function(s,d){return s+d.v;},0),
-      rsi:last.rsi,ma5:last.ma5,ma20:last.ma20,ma60:last.ma60,
-      macd:last.macd,signal:last.signal,hist:last.hist,date:last.date});
+    out.push({time:toTs(last.date),open:chunk[0].o,high:Math.max.apply(null,chunk.map(function(d){return d.h;})),low:Math.min.apply(null,chunk.map(function(d){return d.l;})),close:last.c,volume:chunk.reduce(function(s,d){return s+d.v;},0),rsi:last.rsi,ma5:last.ma5,ma20:last.ma20,ma60:last.ma60,macd:last.macd,signal:last.signal,hist:last.hist,date:last.date});
   }
   return out;
 }
+function nn(arr){return arr.filter(function(d){return d.value!=null&&!isNaN(d.value);});}
 
-function nn(arr){ return arr.filter(function(d){return d.value!=null&&!isNaN(d.value);}); }
-
-function setPeriod(p){
-  periodSize=p;
-  document.querySelectorAll('#periodBtns .tbtn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.period)===p);});
-  updateCharts();
-}
-function toggleMA(n){
-  maVisible[n]=!maVisible[n];
-  document.querySelector('[data-ma="'+n+'"]').classList.toggle('active',maVisible[n]);
-  updateCharts();
-}
+function setPeriod(p){periodSize=p;document.querySelectorAll('#periodBtns .tbtn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.period)===p);});updateCharts();}
+function toggleMA(n){maVisible[n]=!maVisible[n];document.querySelector('[data-ma="'+n+'"]').classList.toggle('active',maVisible[n]);updateCharts();}
 
 function updatePointNav(){
-  var nav=document.getElementById('pointNav');
-  nav.innerHTML='<span style="color:#555;margin-right:4px">시점:</span>';
-  for(var i=0;i<state.totalSteps;i++){
-    var dot=document.createElement('div');
-    dot.className='point-dot'+(i<state.step?' done':i===state.step?' current':'');
-    nav.appendChild(dot);
-  }
-  var sp=document.createElement('span');
-  sp.textContent=' '+(state.step+1)+' / '+state.totalSteps;
-  sp.style.cssText='color:#555;margin-left:4px;font-size:11px';
-  nav.appendChild(sp);
+  var nav=document.getElementById('pointNav');nav.innerHTML='<span style="color:#555;margin-right:4px">시점:</span>';
+  for(var i=0;i<state.totalSteps;i++){var dot=document.createElement('div');dot.className='point-dot'+(i<state.step?' done':i===state.step?' current':'');nav.appendChild(dot);}
+  var sp=document.createElement('span');sp.textContent=' '+(state.step+1)+' / '+state.totalSteps;sp.style.cssText='color:#555;margin-left:4px;font-size:11px';nav.appendChild(sp);
 }
 
 function updateCharts(){
   if(!G.candle)return;
-  var vis=getVisible(), agg=aggregateBars(vis,periodSize);
+  var vis=getVisible(),agg=aggregateBars(vis,periodSize);
   G.candle.setData(agg.map(function(d){return{time:d.time,open:d.open,high:d.high,low:d.low,close:d.close};}));
   G.ma5.setData(maVisible[5]?nn(agg.map(function(d){return{time:d.time,value:d.ma5};})):[]);
   G.ma20.setData(maVisible[20]?nn(agg.map(function(d){return{time:d.time,value:d.ma20};})):[]);
   G.ma60.setData(maVisible[60]?nn(agg.map(function(d){return{time:d.time,value:d.ma60};})):[]);
   G.vol.setData(agg.map(function(d){return{time:d.time,value:d.volume,color:d.close>=d.open?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'};}));
   var rD=nn(agg.map(function(d){return{time:d.time,value:d.rsi};}));
-  G.rsi.setData(rD);
-  if(rD.length){G.rsi70.setData(rD.map(function(d){return{time:d.time,value:70};}));G.rsi30.setData(rD.map(function(d){return{time:d.time,value:30};}));}
+  G.rsi.setData(rD);if(rD.length){G.rsi70.setData(rD.map(function(d){return{time:d.time,value:70};}));G.rsi30.setData(rD.map(function(d){return{time:d.time,value:30};}));}
   G.macdH.setData(nn(agg.map(function(d){return{time:d.time,value:d.hist,color:d.hist>=0?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.7)'};})));
   G.macdL.setData(nn(agg.map(function(d){return{time:d.time,value:d.macd};})));
   G.macdS.setData(nn(agg.map(function(d){return{time:d.time,value:d.signal};})));
   [G.mainChart,G.volChart,G.rsiChart,G.macdChart].forEach(function(c){c.timeScale().fitContent();});
-
   var last=vis[vis.length-1];
-  document.getElementById('inf-price').textContent=fmtPrice(last.c);
-  document.getElementById('inf-price').style.color=last.c>=last.o?'#1D9E75':'#E24B4A';
-  document.getElementById('inf-date').textContent=last.date||'-';
-  document.getElementById('inf-h').textContent=fmtPrice(last.h);
-  document.getElementById('inf-l').textContent=fmtPrice(last.l);
-  document.getElementById('inf-rsi').textContent=last.rsi!=null?last.rsi:'-';
-  document.getElementById('inf-ma20').textContent=last.ma20?fmtPrice(last.ma20):'-';
-  document.getElementById('inf-avg').textContent=state.avgPrice?fmtPrice(state.avgPrice):'-';
-  document.getElementById('inf-shares').textContent=state.shares.toLocaleString()+'주';
+  document.getElementById('inf-price').textContent=fmtPrice(last.c);document.getElementById('inf-price').style.color=last.c>=last.o?'#1D9E75':'#E24B4A';
+  document.getElementById('inf-date').textContent=last.date||'-';document.getElementById('inf-h').textContent=fmtPrice(last.h);document.getElementById('inf-l').textContent=fmtPrice(last.l);
+  document.getElementById('inf-rsi').textContent=last.rsi!=null?last.rsi:'-';document.getElementById('inf-ma20').textContent=last.ma20?fmtPrice(last.ma20):'-';
+  document.getElementById('inf-avg').textContent=state.avgPrice?fmtPrice(state.avgPrice):'-';document.getElementById('inf-shares').textContent=state.shares.toLocaleString()+'주';
   document.getElementById('chartTitle').textContent='블라인드 종목 — 완전 블라인드 모드';
-
   var msgs=['이 시점에서 어떤 판단을 내리겠습니까?','차트의 흐름을 분석해보세요.','거래량과 가격의 관계를 살펴보세요.','이동평균선의 배열을 확인해보세요.','RSI와 MACD 신호를 종합해보세요.'];
   document.getElementById('signalText').textContent=msgs[state.step%msgs.length];
 }
 
 function updateUI(){
-  var p=curPrice(), total=state.cash+state.shares*p;
-  var ret=(total-state.initCash)/state.initCash*100;
-  document.getElementById('cashEl').textContent=fmtPrice(state.cash);
-  document.getElementById('totalEl').textContent=fmtPrice(total);
-  var re=document.getElementById('retEl');
-  re.textContent=(ret>=0?'+':'')+ret.toFixed(2)+'%';
-  re.className='val '+(ret>0?'up':ret<0?'down':'');
+  var p=curPrice(),total=state.cash+state.shares*p,ret=(total-state.initCash)/state.initCash*100;
+  document.getElementById('cashEl').textContent=fmtPrice(state.cash);document.getElementById('totalEl').textContent=fmtPrice(total);
+  var re=document.getElementById('retEl');re.textContent=(ret>=0?'+':'')+ret.toFixed(2)+'%';re.className='val '+(ret>0?'up':ret<0?'down':'');
   document.getElementById('progEl').textContent=(state.step+1)+' / '+state.totalSteps;
-  refreshOrderSummary('buy'); refreshOrderSummary('sell');
+  refreshOrderSummary('buy');refreshOrderSummary('sell');
   if(ret<=-5){var g=document.getElementById('gw');g.classList.add('shake');setTimeout(function(){g.classList.remove('shake');},400);}
 }
 
 function setTab(side,mode){
   orderMode[side]=mode;
-  document.getElementById(side+'TabQty').classList.toggle('active',mode==='qty');
-  document.getElementById(side+'TabAmt').classList.toggle('active',mode==='amt');
-  document.getElementById(side+'Label').textContent=mode==='qty'?'수량':'금액';
-  document.getElementById(side+'Unit').textContent=mode==='qty'?'주':'원';
-  document.getElementById(side+'Input').value='';
-  document.getElementById(side+'Input').step=mode==='qty'?'1':'10000';
-  refreshOrderSummary(side);
+  document.getElementById(side+'TabQty').classList.toggle('active',mode==='qty');document.getElementById(side+'TabAmt').classList.toggle('active',mode==='amt');
+  document.getElementById(side+'Label').textContent=mode==='qty'?'수량':'금액';document.getElementById(side+'Unit').textContent=mode==='qty'?'주':'원';
+  document.getElementById(side+'Input').value='';document.getElementById(side+'Input').step=mode==='qty'?'1':'10000';refreshOrderSummary(side);
 }
 function setPct(side,pct){
   var p=curPrice();
-  if(side==='buy'){
-    if(orderMode.buy==='qty')document.getElementById('buyInput').value=Math.round(Math.floor(state.cash/p)*pct/100);
-    else document.getElementById('buyInput').value=Math.round(state.cash*pct/100/10000)*10000;
-  }else{
-    if(orderMode.sell==='qty')document.getElementById('sellInput').value=Math.round(state.shares*pct/100);
-    else document.getElementById('sellInput').value=Math.round(state.shares*p*pct/100/10000)*10000;
-  }
+  if(side==='buy'){if(orderMode.buy==='qty')document.getElementById('buyInput').value=Math.round(Math.floor(state.cash/p)*pct/100);else document.getElementById('buyInput').value=Math.round(state.cash*pct/100/10000)*10000;}
+  else{if(orderMode.sell==='qty')document.getElementById('sellInput').value=Math.round(state.shares*pct/100);else document.getElementById('sellInput').value=Math.round(state.shares*p*pct/100/10000)*10000;}
   refreshOrderSummary(side);
 }
 function onOrderInput(side){refreshOrderSummary(side);}
 function refreshOrderSummary(side){
-  var p=curPrice(), raw=parseFloat(document.getElementById(side+'Input').value)||0;
-  var qty=orderMode[side]==='qty'?Math.max(0,Math.floor(raw)):Math.floor(Math.max(0,raw)/p);
-  var amt=qty*p;
+  var p=curPrice(),raw=parseFloat(document.getElementById(side+'Input').value)||0;
+  var qty=orderMode[side]==='qty'?Math.max(0,Math.floor(raw)):Math.floor(Math.max(0,raw)/p);var amt=qty*p;
   if(side==='buy'){
-    document.getElementById('buySummaryQty').textContent=qty.toLocaleString()+'주';
-    document.getElementById('buySummaryAmt').textContent=fmtPrice(amt);
-    var left=state.cash-amt, el=document.getElementById('buySummaryLeft');
-    el.textContent=left>=0?fmtPrice(Math.round(left)):'잔액 부족';
-    el.style.color=left<0?'#E24B4A':'#e0e0e0';
+    document.getElementById('buySummaryQty').textContent=qty.toLocaleString()+'주';document.getElementById('buySummaryAmt').textContent=fmtPrice(amt);
+    var left=state.cash-amt,el=document.getElementById('buySummaryLeft');el.textContent=left>=0?fmtPrice(Math.round(left)):'잔액 부족';el.style.color=left<0?'#E24B4A':'#e0e0e0';
     document.getElementById('execBuy').disabled=qty<=0||amt>state.cash;
   }else{
-    document.getElementById('sellSummaryQty').textContent=qty.toLocaleString()+'주';
-    document.getElementById('sellSummaryAmt').textContent=fmtPrice(amt);
-    document.getElementById('sellSummaryHolding').textContent=state.shares.toLocaleString()+'주';
-    document.getElementById('execSell').disabled=qty<=0||qty>state.shares;
+    document.getElementById('sellSummaryQty').textContent=qty.toLocaleString()+'주';document.getElementById('sellSummaryAmt').textContent=fmtPrice(amt);
+    document.getElementById('sellSummaryHolding').textContent=state.shares.toLocaleString()+'주';document.getElementById('execSell').disabled=qty<=0||qty>state.shares;
   }
 }
 function clearInputs(){['buy','sell'].forEach(function(s){document.getElementById(s+'Input').value='';refreshOrderSummary(s);});}
 function execOrder(side){
-  var p=curPrice(), raw=parseFloat(document.getElementById(side+'Input').value)||0;
+  var p=curPrice(),raw=parseFloat(document.getElementById(side+'Input').value)||0;
   var qty=orderMode[side]==='qty'?Math.floor(raw):Math.floor(raw/p);
   var lastDate=getVisible().slice(-1)[0].date;
   if(side==='buy'&&qty>0&&qty*p<=state.cash){
-    var cost=qty*p;
-    state.avgPrice=state.shares===0?p:(state.avgPrice*state.shares+cost)/(state.shares+qty);
-    state.shares+=qty; state.cash-=cost;
-    state.trades.push({step:state.step+1,type:'매수',price:p,qty:qty,date:lastDate});
-    clearInputs(); updateUI();
+    var cost=qty*p;state.avgPrice=state.shares===0?p:(state.avgPrice*state.shares+cost)/(state.shares+qty);
+    state.shares+=qty;state.cash-=cost;state.trades.push({step:state.step+1,type:'매수',price:p,qty:qty,date:lastDate});
+    clearInputs();updateUI();
   }else if(side==='sell'&&qty>0&&qty<=state.shares){
     var pnl=Math.round((p-state.avgPrice)*qty);
     state.trades.push({step:state.step+1,type:'매도',price:p,qty:qty,pnl:pnl,date:lastDate});
-    state.cash+=qty*p; state.shares-=qty;
-    if(state.shares===0)state.avgPrice=0;
-    clearInputs(); updateUI();
+    state.cash+=qty*p;state.shares-=qty;if(state.shares===0)state.avgPrice=0;
+    clearInputs();updateUI();
   }
 }
-function nextStep(){
-  if(state.step>=state.totalSteps-1){showResult();return;}
-  state.step++;
-  clearInputs(); updatePointNav(); updateCharts(); updateUI();
-}
+function nextStep(){if(state.step>=state.totalSteps-1){showResult();return;}state.step++;clearInputs();updatePointNav();updateCharts();updateUI();}
 
 function showResult(){
-  var p=curPrice(), lastDate=getVisible().slice(-1)[0].date;
-  if(state.shares>0){
-    state.trades.push({step:state.step+1,type:'매도(청산)',price:p,qty:state.shares,
-      pnl:Math.round((p-state.avgPrice)*state.shares),date:lastDate});
-    state.cash+=state.shares*p; state.shares=0;
-  }
-  var ret=(state.cash-state.initCash)/state.initCash*100;
-  var pnlTotal=state.cash-state.initCash;
-
-  // 랭킹 저장
+  var p=curPrice(),lastDate=getVisible().slice(-1)[0].date;
+  if(state.shares>0){state.trades.push({step:state.step+1,type:'매도(청산)',price:p,qty:state.shares,pnl:Math.round((p-state.avgPrice)*state.shares),date:lastDate});state.cash+=state.shares*p;state.shares=0;}
+  var ret=(state.cash-state.initCash)/state.initCash*100,pnlTotal=state.cash-state.initCash;
   var now=new Date();
-  var record={
-    id: Date.now(),
-    ret: ret,
-    pnl: pnlTotal,
-    stockName: state.stockName,
-    periodStart: state.startDate,
-    periodEnd: lastDate,
-    trades: state.trades.length,
-    playedAt: now.getFullYear()+'.'+(now.getMonth()+1)+'.'+now.getDate()
-  };
+  var record={id:Date.now(),ret:ret,pnl:pnlTotal,stockName:state.stockName,difficulty:state.difficulty,
+    periodStart:state.startDate,periodEnd:lastDate,trades:state.trades.length,
+    playedAt:now.getFullYear()+'.'+(now.getMonth()+1)+'.'+now.getDate()};
   var rank=addRecord(record);
-
-  // 신기록 배너
   var banner=document.getElementById('newRecordBanner');
-  if(rank&&rank<=3){
-    banner.textContent='🎉 '+rank+'위 달성! 랭킹에 등록됐습니다';
-    banner.style.display='block';
-  }else if(rank){
-    banner.textContent='📊 '+rank+'위로 랭킹에 등록됐습니다';
-    banner.style.display='block';
-  }
-
+  if(rank&&rank<=3){banner.textContent='🎉 '+rank+'위 달성! 랭킹에 등록됐습니다';banner.style.display='block';}
+  else if(rank){banner.textContent='📊 '+rank+'위로 랭킹에 등록됐습니다';banner.style.display='block';}
   var log='<div class="tlog">';
-  state.trades.forEach(function(t){
-    log+='<div>'+t.date+' · '+t.type+' '+t.qty.toLocaleString()+'주 @ '+fmtPrice(t.price)+
-      (t.pnl!==undefined?' / 손익 '+(t.pnl>=0?'+':'')+t.pnl.toLocaleString()+'원':'')+
-      '</div>';
-  });
+  state.trades.forEach(function(t){log+='<div>'+t.date+' · '+t.type+' '+t.qty.toLocaleString()+'주 @ '+fmtPrice(t.price)+(t.pnl!==undefined?' / 손익 '+(t.pnl>=0?'+':'')+t.pnl.toLocaleString()+'원':'')+'</div>';});
   log+='</div>';
-
-  var retColor=ret>=0?'#1D9E75':'#E24B4A';
+  var rc=ret>=0?'#1D9E75':'#E24B4A';
   document.getElementById('modalTitle').textContent='게임 종료';
   document.getElementById('modalBody').innerHTML=
     '<div class="modal-row"><span>종목명</span><span style="font-weight:500">'+state.stockName+'</span></div>'+
+    '<div class="modal-row"><span>난이도</span><span><span class="diff-badge '+state.difficulty+'">'+DIFF_LABELS[state.difficulty]+'</span></span></div>'+
     '<div class="modal-row"><span>구간</span><span style="font-size:11px;color:#888">'+state.startDate+' ~ '+lastDate+'</span></div>'+
     '<div class="modal-row"><span>최종 자산</span><span style="font-weight:500">'+fmtPrice(Math.round(state.cash))+'</span></div>'+
-    '<div class="modal-row"><span>손익</span><span style="font-weight:500;color:'+retColor+'">'+(pnlTotal>=0?'+':'')+Math.round(pnlTotal).toLocaleString()+'원</span></div>'+
-    '<div class="modal-row"><span>수익률</span><span style="font-weight:600;font-size:16px;color:'+retColor+'">'+(ret>=0?'+':'')+ret.toFixed(2)+'%</span></div>'+
+    '<div class="modal-row"><span>손익</span><span style="font-weight:500;color:'+rc+'">'+(pnlTotal>=0?'+':'')+Math.round(pnlTotal).toLocaleString()+'원</span></div>'+
+    '<div class="modal-row"><span>수익률</span><span style="font-weight:600;font-size:16px;color:'+rc+'">'+(ret>=0?'+':'')+ret.toFixed(2)+'%</span></div>'+
     '<div class="modal-row"><span>총 거래 횟수</span><span>'+state.trades.length+'회</span></div>'+
     '<div style="margin-top:10px;font-size:11px;color:#666">거래 내역</div>'+log;
   document.getElementById('resultModal').classList.add('show');
