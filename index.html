@@ -114,12 +114,34 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
 .point-nav{display:flex;align-items:center;gap:6px;font-size:12px;color:#666;padding:4px 2px}
 .point-dot{width:8px;height:8px;border-radius:50%;background:#333;flex-shrink:0;transition:background 0.2s}
 .point-dot.done{background:#1D9E75}.point-dot.current{background:#378ADD}
+/* 힌트 패널 */
+.hint-panel{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:12px;padding:12px}
+.hint-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.hint-title{font-size:13px;font-weight:500;color:#e0e0e0}
+.hint-penalty{font-size:11px;color:#555}
+.hint-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.hint-btn{padding:8px 6px;border-radius:8px;border:0.5px solid #333;font-size:11px;cursor:pointer;background:#111;color:#888;text-align:center;line-height:1.5;transition:all 0.15s}
+.hint-btn:hover:not(:disabled){background:#252525;border-color:#555;color:#e0e0e0}
+.hint-btn:disabled{opacity:0.35;cursor:not-allowed}
+.hint-btn .hb-icon{font-size:16px;display:block;margin-bottom:2px}
+.hint-btn .hb-name{font-size:11px;font-weight:500;display:block}
+.hint-btn .hb-cost{font-size:10px;color:#E24B4A;display:block}
+.hint-btn.opened{border-color:#378ADD;color:#378ADD;background:#0d1a2a}
+.hint-content{display:none;margin-top:8px}
+.hint-content.show{display:block}
+.hint-item{background:#111;border-radius:8px;padding:12px;margin-bottom:6px;border-left:2px solid #378ADD}
+.hint-item .hi-title{font-size:11px;color:#378ADD;font-weight:500;margin-bottom:6px}
+.hint-item .hi-body{font-size:12px;color:#aaa;line-height:1.7;white-space:pre-wrap}
+.hint-loading{text-align:center;padding:16px;color:#555;font-size:12px}
+.hint-spin{display:inline-block;width:16px;height:16px;border:1.5px solid #333;border-top-color:#378ADD;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:6px;vertical-align:middle}
+.hint-warn{font-size:11px;color:#666;text-align:center;padding:6px;border-top:0.5px solid #2a2a2a;margin-top:6px}
 @media(max-width:600px){
   .sub-grid{grid-template-columns:1fr}
   .top-bar{grid-template-columns:1fr 1fr}
   .order-panel{grid-template-columns:1fr}
   .stock-select-grid{grid-template-columns:1fr 1fr}
   .diff-grid{grid-template-columns:1fr}
+  .hint-btns{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -271,6 +293,33 @@ h1{font-size:16px;font-weight:500;color:#e0e0e0;padding:4px 0 2px;display:flex;a
     </div>
 
     <div class="point-nav" id="pointNav"></div>
+
+    <!-- 힌트 패널 -->
+    <div class="hint-panel">
+      <div class="hint-header">
+        <div class="hint-title">💡 힌트 — 당시 시장 상황</div>
+        <div class="hint-penalty" id="hintPenaltyInfo">열람 시 수익률 차감</div>
+      </div>
+      <div class="hint-btns">
+        <button class="hint-btn" id="hintBtn0" onclick="openHint(0)">
+          <span class="hb-icon">🌍</span>
+          <span class="hb-name">거시경제</span>
+          <span class="hb-cost">-0.3%</span>
+        </button>
+        <button class="hint-btn" id="hintBtn1" onclick="openHint(1)">
+          <span class="hb-icon">🏭</span>
+          <span class="hb-name">산업 동향</span>
+          <span class="hb-cost">-0.5%</span>
+        </button>
+        <button class="hint-btn" id="hintBtn2" onclick="openHint(2)">
+          <span class="hb-icon">📰</span>
+          <span class="hb-name">주요 이슈</span>
+          <span class="hb-cost">-0.8%</span>
+        </button>
+      </div>
+      <div class="hint-content" id="hintContent"></div>
+      <div class="hint-warn">⚠️ AI 생성 힌트입니다. 참고용으로만 활용하세요.</div>
+    </div>
 
     <div class="order-panel">
       <div class="order-side">
@@ -535,7 +584,8 @@ function initGame(){
   state={candles:candles,gamePoints:selected,step:0,totalSteps:selected.length,
     cash:INIT_CASH,shares:0,avgPrice:0,trades:[],initCash:INIT_CASH,
     stockName:stockData.name,currency:stockData.currency||'KRW',
-    difficulty:currentDifficulty,startDate:candles[selected[0].index].date};
+    difficulty:currentDifficulty,startDate:candles[selected[0].index].date,
+    hintPenalty:0};
   periodSize=1;
   document.querySelectorAll('#periodBtns .tbtn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.period)===1);});
   // 난이도 배지
@@ -545,7 +595,7 @@ function initGame(){
   hideAll();document.getElementById('resultModal').classList.remove('show');
   document.getElementById('gameScreen').style.display='block';
   buildCharts();setTab('buy','qty');setTab('sell','qty');
-  clearInputs();updatePointNav();updateCharts();updateUI();
+  clearInputs();resetHints();updatePointNav();updateCharts();updateUI();
 }
 
 function getCurrentPointIndex(){return state.gamePoints[state.step].index;}
@@ -600,10 +650,14 @@ function updateCharts(){
 }
 
 function updateUI(){
-  var p=curPrice(),total=state.cash+state.shares*p,ret=(total-state.initCash)/state.initCash*100;
+  var p=curPrice(),total=state.cash+state.shares*p;
+  var ret=(total-state.initCash)/state.initCash*100-(state.hintPenalty||0);
   document.getElementById('cashEl').textContent=fmtPrice(state.cash);document.getElementById('totalEl').textContent=fmtPrice(total);
   var re=document.getElementById('retEl');re.textContent=(ret>=0?'+':'')+ret.toFixed(2)+'%';re.className='val '+(ret>0?'up':ret<0?'down':'');
   document.getElementById('progEl').textContent=(state.step+1)+' / '+state.totalSteps;
+  // 힌트 페널티 표시
+  var pen=state.hintPenalty||0;
+  document.getElementById('hintPenaltyInfo').textContent=pen>0?'누적 페널티 -'+pen.toFixed(1)+'%':'열람 시 수익률 차감';
   refreshOrderSummary('buy');refreshOrderSummary('sell');
   if(ret<=-5){var g=document.getElementById('gw');g.classList.add('shake');setTimeout(function(){g.classList.remove('shake');},400);}
 }
@@ -649,12 +703,117 @@ function execOrder(side){
     clearInputs();updateUI();
   }
 }
-function nextStep(){if(state.step>=state.totalSteps-1){showResult();return;}state.step++;clearInputs();updatePointNav();updateCharts();updateUI();}
+function nextStep(){
+  if(state.step>=state.totalSteps-1){showResult();return;}
+  state.step++;
+  clearInputs();
+  resetHints();
+  updatePointNav();updateCharts();updateUI();
+}
+
+// ── 힌트 시스템 ───────────────────────────────────────────────
+var hintPenalties = [0.3, 0.5, 0.8]; // % 차감
+var hintTypes = [
+  {key:'macro',   icon:'🌍', name:'거시경제',  prompt:'거시경제 및 글로벌 금융시장 동향 (금리, 환율, 주요국 경기지표 등)'},
+  {key:'sector',  icon:'🏭', name:'산업 동향',  prompt:'주식시장 전반의 섹터별 동향 및 주요 산업 이슈'},
+  {key:'news',    icon:'📰', name:'주요 이슈',  prompt:'시장에 영향을 준 주요 뉴스 및 경제 이벤트'},
+];
+var hintCache = {}; // 시점별 캐시
+var hintPenaltyTotal = 0; // 누적 페널티
+
+function resetHints(){
+  hintPenaltyTotal = 0;
+  document.getElementById('hintContent').innerHTML = '';
+  document.getElementById('hintContent').classList.remove('show');
+  for(var i=0;i<3;i++){
+    var btn=document.getElementById('hintBtn'+i);
+    btn.classList.remove('opened');
+    btn.disabled=false;
+  }
+}
+
+async function openHint(idx){
+  var date = getVisible().slice(-1)[0].date;
+  var cacheKey = date + '_' + idx;
+
+  // 페널티 적용
+  var penalty = hintPenalties[idx];
+  state.hintPenalty = (state.hintPenalty||0) + penalty;
+  hintPenaltyTotal += penalty;
+
+  // 버튼 상태 변경
+  var btn = document.getElementById('hintBtn'+idx);
+  btn.classList.add('opened');
+  btn.disabled = true;
+
+  // 콘텐츠 패널 열기
+  var content = document.getElementById('hintContent');
+  content.classList.add('show');
+
+  // 캐시 확인
+  if(hintCache[cacheKey]){
+    appendHintItem(hintTypes[idx], hintCache[cacheKey]);
+    updateUI();
+    return;
+  }
+
+  // 로딩 표시
+  var loadingId = 'hint-loading-'+idx;
+  content.innerHTML += '<div class="hint-loading" id="'+loadingId+'"><span class="hint-spin"></span>'+hintTypes[idx].name+' 분석 중...</div>';
+
+  // 날짜에서 연도/월 추출
+  var parts = date.split('-');
+  var year = parts[0];
+  var month = parseInt(parts[1]);
+  var quarter = Math.ceil(month/3);
+  var period = year+'년 '+quarter+'분기 ('+month+'월 전후)';
+
+  // Claude API 호출
+  var prompt = period + ' 당시 ' + hintTypes[idx].prompt + '를 3~5줄로 간결하게 요약해줘. ' +
+    '특정 기업명은 언급하지 말고 시장 전반적인 내용만. ' +
+    '불확실한 내용은 "~로 알려짐", "~였던 것으로 추정" 등으로 표현해줘. ' +
+    '한국어로 답변해줘.';
+
+  try{
+    var response = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    var data = await response.json();
+    var text = data.content && data.content[0] ? data.content[0].text : '힌트를 불러오지 못했습니다.';
+
+    hintCache[cacheKey] = text;
+
+    // 로딩 제거 후 힌트 표시
+    var loadingEl = document.getElementById(loadingId);
+    if(loadingEl) loadingEl.remove();
+    appendHintItem(hintTypes[idx], text);
+
+  }catch(e){
+    var loadingEl = document.getElementById(loadingId);
+    if(loadingEl) loadingEl.innerHTML = '힌트를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+  }
+
+  updateUI();
+}
+
+function appendHintItem(type, text){
+  var content = document.getElementById('hintContent');
+  var div = document.createElement('div');
+  div.className = 'hint-item';
+  div.innerHTML = '<div class="hi-title">'+type.icon+' '+type.name+'</div><div class="hi-body">'+text+'</div>';
+  content.appendChild(div);
+}
 
 function showResult(){
   var p=curPrice(),lastDate=getVisible().slice(-1)[0].date;
   if(state.shares>0){state.trades.push({step:state.step+1,type:'매도(청산)',price:p,qty:state.shares,pnl:Math.round((p-state.avgPrice)*state.shares),date:lastDate});state.cash+=state.shares*p;state.shares=0;}
-  var ret=(state.cash-state.initCash)/state.initCash*100,pnlTotal=state.cash-state.initCash;
+  var ret=(state.cash-state.initCash)/state.initCash*100-(state.hintPenalty||0),pnlTotal=state.cash-state.initCash;
   var now=new Date();
   var record={id:Date.now(),ret:ret,pnl:pnlTotal,stockName:state.stockName,difficulty:state.difficulty,
     periodStart:state.startDate,periodEnd:lastDate,trades:state.trades.length,
@@ -675,6 +834,7 @@ function showResult(){
     '<div class="modal-row"><span>최종 자산</span><span style="font-weight:500">'+fmtPrice(Math.round(state.cash))+'</span></div>'+
     '<div class="modal-row"><span>손익</span><span style="font-weight:500;color:'+rc+'">'+(pnlTotal>=0?'+':'')+Math.round(pnlTotal).toLocaleString()+'원</span></div>'+
     '<div class="modal-row"><span>수익률</span><span style="font-weight:600;font-size:16px;color:'+rc+'">'+(ret>=0?'+':'')+ret.toFixed(2)+'%</span></div>'+
+    ((state.hintPenalty||0)>0?'<div class="modal-row"><span>힌트 페널티</span><span style="color:#E24B4A">-'+(state.hintPenalty).toFixed(1)+'%</span></div>':'')+
     '<div class="modal-row"><span>총 거래 횟수</span><span>'+state.trades.length+'회</span></div>'+
     '<div style="margin-top:10px;font-size:11px;color:#666">거래 내역</div>'+log;
   document.getElementById('resultModal').classList.add('show');
