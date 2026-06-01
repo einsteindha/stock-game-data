@@ -4,500 +4,500 @@
     "name": "삼성전자",
     "difficulty": "easy",
     "file": "005930_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 12,
-    "updated": "2026-05-25"
+    "game_points": 8,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "005380.KS",
     "name": "현대차",
     "difficulty": "easy",
     "file": "005380_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 7,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "000270.KS",
     "name": "기아",
     "difficulty": "easy",
     "file": "000270_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 5,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "055550.KS",
     "name": "신한지주",
     "difficulty": "easy",
     "file": "055550_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "105560.KS",
     "name": "KB금융",
     "difficulty": "easy",
     "file": "105560_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 10,
-    "updated": "2026-05-25"
+    "game_points": 5,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "086790.KS",
     "name": "하나금융지주",
     "difficulty": "easy",
     "file": "086790_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 11,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "316140.KS",
     "name": "우리금융지주",
     "difficulty": "easy",
     "file": "316140_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 9,
-    "updated": "2026-05-25"
+    "game_points": 8,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "000810.KS",
     "name": "삼성화재",
     "difficulty": "easy",
     "file": "000810_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 10,
-    "updated": "2026-05-25"
+    "game_points": 9,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "032830.KS",
     "name": "삼성생명",
     "difficulty": "easy",
     "file": "032830_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 11,
-    "updated": "2026-05-25"
+    "game_points": 10,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "012330.KS",
     "name": "현대모비스",
     "difficulty": "easy",
     "file": "012330_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 35,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "028260.KS",
     "name": "삼성물산",
     "difficulty": "easy",
     "file": "028260_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 5,
-    "updated": "2026-05-25"
+    "game_points": 6,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "034730.KS",
     "name": "SK",
     "difficulty": "easy",
     "file": "034730_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "017670.KS",
     "name": "SK텔레콤",
     "difficulty": "easy",
     "file": "017670_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 13,
-    "updated": "2026-05-25"
+    "game_points": 11,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "030200.KS",
     "name": "KT",
     "difficulty": "easy",
     "file": "030200_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 9,
-    "updated": "2026-05-25"
+    "game_points": 8,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "066570.KS",
     "name": "LG전자",
     "difficulty": "easy",
     "file": "066570_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 10,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "003550.KS",
     "name": "LG",
     "difficulty": "easy",
     "file": "003550_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 6,
-    "updated": "2026-05-25"
+    "game_points": 7,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "097950.KS",
     "name": "CJ제일제당",
     "difficulty": "easy",
     "file": "097950_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 9,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "004370.KS",
     "name": "농심",
     "difficulty": "easy",
     "file": "004370_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 10,
-    "updated": "2026-05-25"
+    "game_points": 9,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "271560.KS",
     "name": "오리온",
     "difficulty": "easy",
     "file": "271560_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "139480.KS",
     "name": "이마트",
     "difficulty": "easy",
     "file": "139480_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 35,
-    "updated": "2026-05-25"
+    "game_points": 9,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "000660.KS",
     "name": "SK하이닉스",
     "difficulty": "normal",
     "file": "000660_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 33,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "035420.KS",
     "name": "NAVER",
     "difficulty": "normal",
     "file": "035420_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 33,
-    "updated": "2026-05-25"
+    "game_points": 31,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "035720.KS",
     "name": "카카오",
     "difficulty": "normal",
     "file": "035720_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 31,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "051910.KS",
     "name": "LG화학",
     "difficulty": "normal",
     "file": "051910_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 31,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "006400.KS",
     "name": "삼성SDI",
     "difficulty": "normal",
     "file": "006400_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 31,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "096770.KS",
     "name": "SK이노베이션",
     "difficulty": "normal",
     "file": "096770_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 33,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "005490.KS",
     "name": "POSCO홀딩스",
     "difficulty": "normal",
     "file": "005490_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 32,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "068270.KS",
     "name": "셀트리온",
     "difficulty": "normal",
     "file": "068270_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 34,
-    "updated": "2026-05-25"
+    "game_points": 32,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "207940.KS",
     "name": "삼성바이오로직스",
     "difficulty": "normal",
     "file": "207940_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 34,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "128940.KS",
     "name": "한미약품",
     "difficulty": "normal",
     "file": "128940_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 31,
-    "updated": "2026-05-25"
+    "game_points": 32,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "018260.KS",
     "name": "삼성에스디에스",
     "difficulty": "normal",
     "file": "018260_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 35,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "352820.KS",
     "name": "하이브",
     "difficulty": "normal",
     "file": "352820_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 29,
-    "updated": "2026-05-25"
+    "game_points": 28,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "041510.KS",
     "name": "에스엠",
     "difficulty": "normal",
     "file": "041510_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 29,
-    "updated": "2026-05-25"
+    "game_points": 31,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "003490.KS",
     "name": "대한항공",
     "difficulty": "normal",
     "file": "003490_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 34,
-    "updated": "2026-05-25"
+    "game_points": 33,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "011200.KS",
     "name": "HMM",
     "difficulty": "normal",
     "file": "011200_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 27,
-    "updated": "2026-05-25"
+    "game_points": 30,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "012450.KS",
     "name": "한화에어로스페이스",
     "difficulty": "normal",
     "file": "012450_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 31,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "329180.KS",
     "name": "현대중공업",
     "difficulty": "normal",
     "file": "329180_KS.json",
-    "total": 1139,
+    "total": 1144,
     "currency": "KRW",
     "game_points": 26,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "259960.KS",
     "name": "크래프톤",
     "difficulty": "normal",
     "file": "259960_KS.json",
-    "total": 1166,
+    "total": 1171,
     "currency": "KRW",
-    "game_points": 28,
-    "updated": "2026-05-25"
+    "game_points": 29,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "373220.KS",
     "name": "LG에너지솔루션",
     "difficulty": "normal",
     "file": "373220_KS.json",
-    "total": 1052,
+    "total": 1057,
     "currency": "KRW",
     "game_points": 29,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "003670.KS",
     "name": "포스코퓨처엠",
     "difficulty": "normal",
     "file": "003670_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 33,
-    "updated": "2026-05-25"
+    "game_points": 29,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "247540.KS",
     "name": "에코프로비엠",
     "difficulty": "hard",
     "file": "247540_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 28,
-    "updated": "2026-05-25"
+    "game_points": 25,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "086520.KS",
     "name": "에코프로",
     "difficulty": "hard",
     "file": "086520_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 23,
-    "updated": "2026-05-25"
+    "game_points": 26,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "326030.KS",
     "name": "SK바이오팜",
     "difficulty": "hard",
     "file": "326030_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 27,
-    "updated": "2026-05-25"
+    "game_points": 26,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "145020.KS",
     "name": "휴젤",
     "difficulty": "hard",
     "file": "145020_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 27,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "035900.KS",
     "name": "JYP엔터테인먼트",
     "difficulty": "hard",
     "file": "035900_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 27,
-    "updated": "2026-05-25"
+    "game_points": 26,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "122870.KS",
     "name": "와이지엔터테인먼트",
     "difficulty": "hard",
     "file": "122870_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 23,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "042660.KS",
     "name": "한화오션",
     "difficulty": "hard",
     "file": "042660_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
-    "game_points": 27,
-    "updated": "2026-05-25"
+    "game_points": 28,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "010140.KS",
     "name": "삼성중공업",
     "difficulty": "hard",
     "file": "010140_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 23,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "047040.KS",
     "name": "대우건설",
     "difficulty": "hard",
     "file": "047040_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 30,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "011170.KS",
     "name": "롯데케미칼",
     "difficulty": "hard",
     "file": "011170_KS.json",
-    "total": 1222,
+    "total": 1221,
     "currency": "KRW",
     "game_points": 22,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "SPY",
@@ -507,7 +507,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 5,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "QQQ",
@@ -516,8 +516,8 @@
     "file": "QQQ.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 9,
-    "updated": "2026-05-25"
+    "game_points": 7,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "IWM",
@@ -527,7 +527,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "JPM",
@@ -536,8 +536,8 @@
     "file": "JPM.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 10,
-    "updated": "2026-05-25"
+    "game_points": 8,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "BAC",
@@ -547,7 +547,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 10,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "JNJ",
@@ -557,7 +557,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 11,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "WMT",
@@ -567,7 +567,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "COST",
@@ -577,7 +577,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 5,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "V",
@@ -587,7 +587,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 8,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "MA",
@@ -597,7 +597,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 5,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "XOM",
@@ -607,7 +607,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 7,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "CVX",
@@ -616,8 +616,8 @@
     "file": "CVX.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 10,
-    "updated": "2026-05-25"
+    "game_points": 8,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "AAPL",
@@ -627,7 +627,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 34,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "MSFT",
@@ -637,7 +637,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 33,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "GOOGL",
@@ -647,7 +647,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 33,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "AMZN",
@@ -657,7 +657,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 35,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "META",
@@ -667,7 +667,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 31,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "NVDA",
@@ -676,8 +676,8 @@
     "file": "NVDA.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 34,
-    "updated": "2026-05-25"
+    "game_points": 33,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "INTC",
@@ -687,7 +687,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 35,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "QCOM",
@@ -697,7 +697,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 35,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "MCD",
@@ -706,8 +706,8 @@
     "file": "MCD.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 34,
-    "updated": "2026-05-25"
+    "game_points": 33,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "SBUX",
@@ -716,8 +716,8 @@
     "file": "SBUX.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 33,
-    "updated": "2026-05-25"
+    "game_points": 34,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "NKE",
@@ -726,8 +726,8 @@
     "file": "NKE.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 30,
-    "updated": "2026-05-25"
+    "game_points": 29,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "DIS",
@@ -736,8 +736,8 @@
     "file": "DIS.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 33,
-    "updated": "2026-05-25"
+    "game_points": 34,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "NFLX",
@@ -747,7 +747,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 28,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "GS",
@@ -757,7 +757,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 34,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "MS",
@@ -766,8 +766,8 @@
     "file": "MS.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 30,
-    "updated": "2026-05-25"
+    "game_points": 32,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "UNH",
@@ -776,8 +776,8 @@
     "file": "UNH.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 28,
-    "updated": "2026-05-25"
+    "game_points": 27,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "PFE",
@@ -787,7 +787,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 36,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "BA",
@@ -797,7 +797,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 32,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "COP",
@@ -806,8 +806,8 @@
     "file": "COP.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 31,
-    "updated": "2026-05-25"
+    "game_points": 32,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "TSLA",
@@ -817,7 +817,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 27,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "AMD",
@@ -826,18 +826,18 @@
     "file": "AMD.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 30,
-    "updated": "2026-05-25"
+    "game_points": 29,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "RIVN",
     "name": "Rivian",
     "difficulty": "hard",
     "file": "RIVN.json",
-    "total": 1137,
+    "total": 1142,
     "currency": "USD",
     "game_points": 22,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "LCID",
@@ -847,7 +847,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 26,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "PLTR",
@@ -857,7 +857,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 28,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "CRM",
@@ -867,7 +867,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 28,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "NOW",
@@ -876,8 +876,8 @@
     "file": "NOW.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 26,
-    "updated": "2026-05-25"
+    "game_points": 27,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "MRK",
@@ -887,7 +887,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 29,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "ABBV",
@@ -897,7 +897,7 @@
     "total": 1256,
     "currency": "USD",
     "game_points": 29,
-    "updated": "2026-05-25"
+    "updated": "2026-06-01"
   },
   {
     "ticker": "UAL",
@@ -906,8 +906,8 @@
     "file": "UAL.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 28,
-    "updated": "2026-05-25"
+    "game_points": 29,
+    "updated": "2026-06-01"
   },
   {
     "ticker": "T",
@@ -916,7 +916,7 @@
     "file": "T.json",
     "total": 1256,
     "currency": "USD",
-    "game_points": 29,
-    "updated": "2026-05-25"
+    "game_points": 28,
+    "updated": "2026-06-01"
   }
 ]
